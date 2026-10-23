@@ -241,11 +241,9 @@
       "title": "Footer controls",
       "description": "Quiet system/light/dark controls with a real app-owned plain-text agent link.",
       "author": "WLKR Labs",
-      "dependencies": [
-        "lucide-react"
-      ],
       "registryDependencies": [
-        "toggle-group"
+        "toggle-group",
+        "tooltip"
       ],
       "files": [
         {

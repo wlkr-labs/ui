@@ -107,3 +107,17 @@ Registry build/source validation for 12 entries, static production build, lint, 
 - System selection follows OS light/dark preference. All four footer targets measure 44×44 px, and the 390 px mobile layout has no horizontal overflow.
 
 This feedback remains local-only. Neither public application was deployed or pushed, and no commit was created by this implementation worker. The previously published source remains `6c34da775eb20b62b4352a360586d100b62399df`.
+
+## Compact footer correction — local draft, 2026-10-23
+
+The earlier 44 px footer layout is superseded by the user’s explicit reference correction: 24 px action cells, a 72×24 px outlined theme capsule, an 8 px gap, and a separate 24 px agent action (104×24 px total). Exact user-supplied Vercel footer SVG paths replace Lucide approximations, retaining their filled 16 px geometry and rules. Stock shadcn Tooltip adds concise hover/focus labels; native titles are removed. Stable choice classes and aria-checked styling avoid Tooltip’s asChild slot/state attribute collisions.
+
+The existing theme actions, real agent destination, keyboard navigation, and reduced-motion behavior remain intact. No public deployment or push was performed. Browser measurements and final checks are recorded after acceptance.
+
+### Compact footer acceptance — local, 2026-10-23
+
+The website footer measured 104×24 px, with four 24×24 px controls and 16×16 px SVGs. Exact supplied reference icons rendered, and selected theme styling remained stable despite Tooltip’s slot/state attributes. Hover showed one readable “Light theme” stock tooltip at 11 px and full opacity. A nested stock arrow wrapper was identified and its descendant SVG hidden through footer-scoped CSS; stock Tooltip source stayed unchanged.
+
+The compact control is still a local draft. No public deployment or push was performed.
+
+Final compact-control checks: gallery demo and footer both measure 104 × 24 px, with all icons 16 × 16 px. Website theme selection updates both the document class and accessible selected state; System was restored after testing. At a 390 px viewport, the document width remains 390 px and the control remains 104 × 24 px. The scoped tooltip arrow rule uses `!important` to override Radix’s inline SVG display style while leaving the stock Tooltip source unchanged.
