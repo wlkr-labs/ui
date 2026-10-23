@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export type PixelPoint = { x: number; y: number; z?: number }
+export type PixelMorphShape = "sphere" | "cube" | "torus"
 export type PixelPattern = "steady" | "scatter" | "wave" | "scan"
 export type PixelObjectProps = {
   points?: PixelPoint[]; mask?: string[]; resolution?: number; size?: number
@@ -21,6 +22,8 @@ export type PixelObjectProps = {
   seed?: number | string; randomness?: number; opacity?: number
   /** Change this value to restart the timeline without remounting the object. */
   restartKey?: number | string
+  /** Continuous shape interpolation; ignored when custom points or mask are supplied. Duration is seconds per transition. */
+  morph?: { shapes?: PixelMorphShape[]; duration?: number }
 }
 const clamp = (value: number, min: number, max: number, fallback: number) => Math.max(min, Math.min(max, Number.isFinite(value) ? value : fallback))
 export function spherePoints(count = 420): PixelPoint[] {
@@ -52,7 +55,7 @@ function noise(x: number, y: number, seed: number) {
 }
 
 /** Native SVG projection; seeded smooth patterns; no work while paused, hidden, off-screen or reduced-motion. */
-export function PixelObject({ points, mask, resolution = 36, size = 260, label = "Rotating pixel sphere", rotating = true, className, dotShape = "rounded", dotSize, gap, rotationSpeed = .15, flickerAmount = 0, flickerSpeed = .5, pattern = "steady", delay = 0, stagger = 0, seed = 1, randomness = 1, opacity = 1, restartKey = 0 }: PixelObjectProps) {
+export function PixelObject({ points, mask, resolution = 36, size = 260, label = "Rotating pixel sphere", rotating = true, className, dotShape = "rounded", dotSize, gap, rotationSpeed = .15, flickerAmount = 0, flickerSpeed = .5, pattern = "steady", delay = 0, stagger = 0, seed = 1, randomness = 1, opacity = 1, restartKey = 0, morph }: PixelObjectProps) {
   const root = React.useRef<HTMLDivElement>(null)
   const timeline = React.useRef({ time:0, angle:0, key:restartKey })
   const [frame, setFrame] = React.useState({time:0, angle:0})
@@ -77,7 +80,10 @@ export function PixelObject({ points, mask, resolution = 36, size = 260, label =
   const seedValue = seedNumber(seed)
   const shape = ["square","rounded","circle"].includes(dotShape) ? dotShape : "rounded"
   const effect = ["steady","scatter","wave","scan"].includes(pattern) ? pattern : "steady"
-  const animated = rotating && speed > 0 || strength > 0 && frequency > 0 && effect !== "steady"
+  const morphShapes = (morph?.shapes ?? ["sphere","cube","torus"]).filter((value):value is PixelMorphShape => ["sphere","cube","torus"].includes(value))
+  const morphing = Boolean(morph && !points && !mask && morphShapes.length > 1)
+  const morphDuration = clamp(morph?.duration ?? 8,2,60,8)
+  const animated = morphing || rotating && speed > 0 || strength > 0 && frequency > 0 && effect !== "steady"
   const cloud = React.useMemo(() => {
     if (mask) {
       const rows = mask.slice(0,80)
@@ -120,7 +126,20 @@ export function PixelObject({ points, mask, resolution = 36, size = 260, label =
   },[animated,paused,rotating,speed,startDelay,restartKey])
   const pixels = new Map<string,{x:number;y:number;depth:number}>()
   const cosine=Math.cos(frame.angle), sine=Math.sin(frame.angle)
-  for(const point of cloud) {
+  function morphPoint(point:PixelPoint,index:number):PixelPoint {
+    if(!morphing)return point
+    const progress=Math.max(0,frame.time-startDelay)/1000/morphDuration
+    const stage=Math.floor(progress), blend=.5-.5*Math.cos((progress-stage)*Math.PI)
+    function target(shape:PixelMorphShape):PixelPoint {
+      if(shape==="cube"){const scale=.7/Math.max(.001,Math.abs(point.x),Math.abs(point.y),Math.abs(point.z??0));return{x:point.x*scale,y:point.y*scale,z:(point.z??0)*scale}}
+      if(shape==="torus"){const u=index/cloud.length*Math.PI*2,v=index*Math.PI*(3-Math.sqrt(5));const radius=.68+.26*Math.cos(v);return{x:Math.cos(u)*radius,y:.26*Math.sin(v),z:Math.sin(u)*radius}}
+      return point
+    }
+    const from=target(morphShapes[stage%morphShapes.length]),to=target(morphShapes[(stage+1)%morphShapes.length])
+    return{x:from.x+(to.x-from.x)*blend,y:from.y+(to.y-from.y)*blend,z:(from.z??0)+((to.z??0)-(from.z??0))*blend}
+  }
+  for(const [index,original] of cloud.entries()) {
+    const point=morphPoint(original,index)
     const z=point.z??0
     const x=point.x*cosine+z*sine
     const depth=-point.x*sine+z*cosine
@@ -139,7 +158,7 @@ export function PixelObject({ points, mask, resolution = 36, size = 260, label =
     const wave=effect==="scatter" ? Math.sin(phase+offset) : effect==="wave" ? Math.sin(phase-(x+y)*.3-offset*.2) : Math.cos(phase-y/Math.max(1,grid-1)*Math.PI*2)
     return 1-strength*ramp*(.65*(1-(wave+1)/2))
   }
-  return <div ref={root} className={cn("wlkr-pixel-object",className)} style={{width:dimension}} data-motion={motion?"running":"paused"} data-pattern={effect}>
+  return <div ref={root} className={cn("wlkr-pixel-object",className)} style={{width:dimension}} data-motion={motion?"running":"paused"} data-pattern={effect} data-morph={morphing?"continuous":undefined}>
     <style>{styles}</style>
     <svg viewBox={`0 0 ${extent} ${extent}`} role="img" aria-label={label}>
       {[...pixels.entries()].map(([key,pixel]) => <rect key={key} x={inset+pixel.x*pitch} y={inset+pixel.y*pitch} width={dot} height={dot} rx={shape==="circle"?dot/2:shape==="rounded"?dot/12:0} fill="currentColor" opacity={alpha*(.22+Math.max(0,Math.min(1,(pixel.depth+1)/2))*.73)*intensity(pixel.x,pixel.y)} />)}

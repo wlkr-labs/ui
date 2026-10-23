@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { ArrowDown, ArrowUpRight, Check, Moon, Search, Sun, X } from "lucide-react"
+import { ArrowDown, ArrowUpRight, Check, Search, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
@@ -12,6 +12,10 @@ import { AsyncAction } from "@/registry/wlkr/async-action"
 import { FilterList } from "@/registry/wlkr/filter-list"
 import { PixelPlayground } from "@/components/pixel-playground"
 import { LoaderPlayground } from "@/components/loader-playground"
+import { PageIntro } from "@/registry/wlkr/page-intro"
+import { IndexRow } from "@/registry/wlkr/index-row"
+import { TextLink } from "@/registry/wlkr/text-link"
+import { ThemeToggle } from "@/registry/wlkr/theme-toggle"
 
 const entries = [
   { id: "copy-command", name: "Copy command", description: "One command. One click. Clear feedback when it works, a useful fallback when it doesn’t.", keywords: "clipboard install terminal copy" },
@@ -19,6 +23,11 @@ const entries = [
   { id: "filter-list", name: "Filter list", description: "Find the thing you came for. A small, accessible search for lists that don’t need a whole search engine.", keywords: "search input empty list filter" },
   { id: "pixel-object", name: "Pixel object", description: "Give a shape a little life. Project a point cloud or a simple mask into a quiet field of pixels.", keywords: "sphere disco rotating motion flicker grid shape object mask pixels" },
   { id: "wlkr-loader", name: "WLKR loader", description: "A familiar mark, in motion. Two quiet loading rhythms built from WLKR’s original six cells.", keywords: "loading logo loader symbol bars dots stagger motion" },
+  { id: "page-intro", name: "Page intro", description: "A clear beginning. Final text holds its place while a quiet binary field resolves into the title.", keywords: "heading title binary reveal typography header intro" },
+  { id: "index-row", name: "Index row", description: "An index with a little movement. Three digits roll on hover or focus, then settle where they belong.", keywords: "index list row number counting spin link navigation" },
+  { id: "text-link", name: "Text link", description: "A link that stays a link. Add an optional preview when a little context helps someone choose.", keywords: "link hover card preview focus navigation" },
+  { id: "theme-toggle", name: "Theme toggle", description: "Light or dark, with one quiet control. System preferences lead until you choose otherwise.", keywords: "theme toggle dark light system preference" },
+  { id: "typography", name: "Typography", description: "The same type, scale, and spacing you see here. Opt-in styles for a shared visual language.", keywords: "typography layout styles font geist display spacing" },
   { id: "primitives", name: "Primitives", description: "Good foundations, straight from shadcn/ui. We use the originals, with WLKR’s shared design tokens.", keywords: "button input switch shadcn stock" },
   { id: "foundations", name: "Foundations", description: "A common language for what comes next. Semantic color, considered type, and space to think.", keywords: "theme tokens color typography design dark light" },
 ]
@@ -32,6 +41,11 @@ const examples: Record<string, string> = {
   "async-action": `import { AsyncAction } from "@/components/wlkr/async-action"\n\n<AsyncAction\n  action={async () => {\n    const response = await fetch("/api/settings", { method: "POST" })\n    if (!response.ok) throw new Error("Save failed")\n  }}\n  pendingLabel="Saving changes…"\n  successLabel="Changes saved"\n  failureLabel="Try again"\n  errorLabel="Changes were not saved. Try again."\n>\n  Save changes\n</AsyncAction>`,
   "filter-list": `import { FilterList } from "@/components/wlkr/filter-list"\n\n<FilterList\n  label="Search projects"\n  items={[\n    { id: "studio", label: "Brand Studio", keywords: ["design"] },\n    { id: "weather", label: "WeatherGoblin", description: "Your forecast." },\n  ]}\n/>`,
   "pixel-object": `import { PixelObject, spherePoints } from "@/components/wlkr/pixel-object"\n\n<PixelObject label="Pixel sphere" points={spherePoints(420)} />\n\n// Or give it your own flat mask, with motion disabled.\n<PixelObject\n  mask={["  #  ", " ### ", "#####"]}\n  rotating={false}\n  label="Pixel triangle"\n/>`,
+  "page-intro": `import { PageIntro } from "@/components/wlkr/page-intro"\n\n<PageIntro title="Less.\\nBetter." description="A clear starting point." />`,
+  "index-row": `import { IndexRow } from "@/components/wlkr/index-row"\n\n<IndexRow number={7} title="Brand Studio" description="Considered tools for a clear identity." href="/projects/studio">In progress</IndexRow>`,
+  "text-link": `import { TextLink } from "@/components/wlkr/text-link"\n\n<TextLink href="https://wlkrlabs.com" preview={{ title: "WLKR Labs", description: "A small studio building useful things." }}>Explore the studio</TextLink>`,
+  "theme-toggle": `import { ThemeToggle } from "@/components/wlkr/theme-toggle"\n\n<ThemeToggle showLabel />\n// Uses wlkr-theme storage; follows system preferences until selected.`,
+  typography: `/* Import the CLI-installed stylesheet from your global CSS. */\n@import "./wlkr-typography.css";\n\n/* Opt in at your application root, then use individual classes. */\n<div className="wlkr-typography wlkr-layout">\n  <h1 className="wlkr-display">Well set.</h1>\n  <p className="wlkr-intro-copy">A little space to think.</p>\n</div>`,
   primitives: `import { Button } from "@/components/ui/button"\nimport { Input } from "@/components/ui/input"\nimport { Switch } from "@/components/ui/switch"\n\n<Button variant="ghost">Continue</Button>\n<label htmlFor="name">Your name</label>\n<Input id="name" placeholder="Alex Walker" />\n<Switch aria-label="Enable notifications" />`,
 }
 
@@ -41,6 +55,11 @@ function Demo({ id }: { id: string }) {
   const [continued, setContinued] = React.useState(false)
   if (id === "copy-command") return <CopyCommand command="pnpm dlx shadcn@latest add @wlkr/copy-command" />
   if (id === "async-action") return <div><div className="demo-actions"><AsyncAction action={async () => { await new Promise(resolve => setTimeout(resolve, 1100)); if (failure) throw new Error("Demo failure") }} pendingLabel="Saving changes…" successLabel="Changes saved" errorLabel="Changes weren’t saved. Turn off the error simulation and try again.">Save changes</AsyncAction></div><label className="demo-option"><Switch checked={failure} onCheckedChange={setFailure} aria-label="Simulate a failed save" />Simulate a failed save</label></div>
+  if (id === "page-intro") return <PageIntro as="h2" title={"Less.\nBetter."} description="A clear starting point. Nothing to move out of the way." />
+  if (id === "index-row") return <div><IndexRow number={7} title="Brand Studio" description="Considered tools for a clear identity." href="https://wlkrlabs.com" target="_blank" rel="noreferrer">In progress</IndexRow><IndexRow number={42} title="WeatherGoblin" href="https://wlkrlabs.com" target="_blank" rel="noreferrer">In development</IndexRow></div>
+  if (id === "text-link") return <p className="text-base leading-relaxed">Take a look around <TextLink href="https://wlkrlabs.com" preview={{title:"WLKR Labs",description:"A small studio building useful things, with care for the details."}}>WLKR Labs</TextLink>, or <TextLink href="#installation">bring a component home</TextLink>.</p>
+  if (id === "theme-toggle") return <ThemeToggle showLabel />
+  if (id === "typography") return <div className="wlkr-typography wlkr-stack"><p className="wlkr-display">Aa.</p><p className="wlkr-intro-copy">Geist. One scale. Room to breathe.</p><p className="wlkr-caption">Opt-in styles, with the same exact gallery values.</p></div>
   if (id === "filter-list") return <FilterList items={projects} label="Search projects" placeholder="Search projects…" />
   return <div className="flex flex-col gap-7"><div className="demo-actions"><Button variant="ghost" onClick={() => setContinued(!continued)}>{continued ? <Check data-icon="inline-start" /> : <ArrowUpRight data-icon="inline-start" />}{continued ? "You’re all set" : "Continue"}</Button><label className="flex min-h-11 items-center gap-3 text-sm"><Switch checked={notifications} onCheckedChange={setNotifications} />Notifications {notifications ? "on" : "off"}</label></div><div className="terminal-field"><label htmlFor="demo-name" className="sr-only">Your name</label><Input id="demo-name" placeholder="Your name" autoComplete="name" /></div></div>
 }
@@ -53,27 +72,23 @@ export function Showcase({ sources }: { sources: Record<string, string> }) {
     window.addEventListener("keydown", keydown)
     return () => window.removeEventListener("keydown", keydown)
   }, [])
-  function toggleTheme() {
-    const next = document.documentElement.classList.contains("dark") ? "light" : "dark"
-    document.documentElement.classList.toggle("dark", next === "dark")
-    try { localStorage.setItem("wlkr-theme", next) } catch { /* Theme still works when storage is disabled. */ }
-  }
   const filtered = entries.filter(entry => `${entry.name} ${entry.description} ${entry.keywords}`.toLowerCase().includes(query.toLowerCase().trim()))
   return <div className="site shell">
     <a href="#collection" className="sr-only focus:not-sr-only">Skip to components</a>
     <header className="site-header">
       <a href="#" className="identity" aria-label="wlkr/ui home"><Image className="brand-mark" src="/wlkr-mark.svg" alt="" width={27} height={31} priority /><span>wlkr<span className="text-muted-foreground">/</span>ui</span></a>
-      <nav className="header-nav" aria-label="Main navigation"><a href="#collection">Components</a><a href="#installation">Get started</a><a className="desktop-link" href="https://wlkrlabs.com" target="_blank" rel="noreferrer">WLKR Labs</a><button type="button" className="icon-button" aria-label="Toggle color theme" title="Toggle color theme" onClick={toggleTheme}><Sun className="theme-sun" /><Moon className="theme-moon" /></button></nav>
+      <nav className="header-nav" aria-label="Main navigation"><a href="#collection">Components</a><a href="#installation">Get started</a><a className="desktop-link" href="https://wlkrlabs.com" target="_blank" rel="noreferrer">WLKR Labs</a><ThemeToggle /></nav>
     </header>
     <main>
       <div className="hero"><h1>Interfaces,<br />reduced.</h1><div className="hero-note"><p>Useful components.<br />Thoughtful defaults.<br />Source you own.</p><a href="#collection">Explore the collection <ArrowDown aria-hidden="true" /></a></div></div>
       <div className="workbench" id="collection">
-        <aside className="index" aria-label="Component index"><p className="index-label">The collection</p><div className="search-row"><Search aria-hidden="true" /><label className="sr-only" htmlFor="component-search">Search components</label><input ref={searchRef} id="component-search" type="search" placeholder="Search components…" value={query} onChange={event => setQuery(event.target.value)} />{query && <button className="icon-button" aria-label="Clear component search" onClick={() => { setQuery(""); searchRef.current?.focus() }}><X /></button>}</div><nav className="index-links" aria-label="Components">{filtered.map((entry, i) => <a className={i === 0 ? "active" : ""} key={entry.id} href={`#${entry.id}`}>{entry.name}</a>)}</nav><p className="index-foot" role="status">{query ? `${filtered.length} matching sections` : "Five originals. A shared language."}</p></aside>
+        <aside className="index" aria-label="Component index"><p className="index-label">The collection</p><div className="search-row"><Search aria-hidden="true" /><label className="sr-only" htmlFor="component-search">Search components</label><input ref={searchRef} id="component-search" type="search" placeholder="Search components…" value={query} onChange={event => setQuery(event.target.value)} />{query && <button className="icon-button" aria-label="Clear component search" onClick={() => { setQuery(""); searchRef.current?.focus() }}><X /></button>}</div><nav className="index-links" aria-label="Components">{filtered.map((entry, i) => <a className={i === 0 ? "active" : ""} key={entry.id} href={`#${entry.id}`}>{entry.name}</a>)}</nav><p className="index-foot" role="status">{query ? `${filtered.length} matching sections` : "Nine originals. A shared language."}</p></aside>
         <div className="min-w-0">{filtered.length === 0 && <div className="component-section"><h2 className="text-2xl tracking-tight">Nothing here by that name.</h2><p className="mt-3 text-sm text-muted-foreground">Try “copy”, “search”, or “theme”.</p><Button variant="ghost" onClick={() => setQuery("")}>Clear search</Button></div>}
         {filtered.map(entry => <section className="component-section" id={entry.id} key={entry.id} aria-labelledby={`${entry.id}-title`}><div className="component-heading"><div><h2 id={`${entry.id}-title`}>{entry.name}</h2><p>{entry.description}</p></div><span className="component-origin">{entry.id === "primitives" ? "shadcn/ui" : entry.id === "foundations" ? "WLKR system" : "WLKR original"}</span></div>
         {entry.id === "foundations" ? <div className="foundation"><div className="swatches">{[["Canvas", "var(--background)"], ["Ink", "var(--foreground)"], ["Quiet", "var(--muted-foreground)"], ["WLKR green", "var(--brand)"]].map(([name, color]) => <div className="swatch" key={name}><i style={{background:color}} /><span>{name}</span></div>)}</div><h3>Meaning before appearance.</h3><p>Canvas, foreground, muted, and accent describe a purpose. Their values change with the light. Green marks a useful moment; it never has to carry the message alone.</p><h3 className="mt-8">One typeface. Room to breathe.</h3><p>Geist. A compact scale. Tight display typography and comfortable reading lengths. Focus stays visible. Motion follows interaction and respects reduced-motion preferences.</p><div className="install-line mt-5"><CopyCommand command="pnpm dlx shadcn@latest add @wlkr/theme" /></div><details className="code-panel"><summary>Token reference</summary><pre>{`--background     Canvas\n--foreground     Primary text\n--muted-foreground  Supporting text\n--primary        Primary action\n--success        Successful completion\n--destructive    Failure feedback\n--ring           Keyboard focus\n--brand          #33F282\n--brand-foreground #010101\n\nApply .dark to the document root for dark mode.\nThe theme leaves your app’s typography unchanged.`}</pre></details></div> : <>
         {entry.id === "pixel-object" ? <PixelPlayground /> : entry.id === "wlkr-loader" ? <LoaderPlayground /> : <Tabs defaultValue="preview" className="docs-tabs mt-6"><TabsList aria-label={`${entry.name} view`}><TabsTrigger value="preview">Preview</TabsTrigger><TabsTrigger value="usage">Usage</TabsTrigger></TabsList><TabsContent value="preview"><div className="preview"><div className="preview-content"><Demo id={entry.id} /></div></div></TabsContent><TabsContent value="usage"><div className="code-panel"><pre><code>{examples[entry.id]}</code></pre></div></TabsContent></Tabs>}
-        <div className="install-line"><CopyCommand command={entry.id === "primitives" ? "pnpm dlx shadcn@latest add button input switch" : `pnpm dlx shadcn@latest add @wlkr/${entry.id}`} /></div>
+        <div className="install-line"><CopyCommand command={entry.id === "primitives" ? "pnpm dlx shadcn@latest add button input switch" : `pnpm dlx shadcn@latest add ${["page-intro","index-row","text-link","theme-toggle","typography"].includes(entry.id) ? `http://localhost:3100/r/${entry.id}.json` : `@wlkr/${entry.id}`}`} /></div>
+        {entry.id === "typography" && <p className="mt-3 text-xs text-muted-foreground">Import the stylesheet from the path printed by the CLI (usually src/styles/wlkr-typography.css). The font stays owned by your app.</p>}
         {sources[entry.id] ? <details className="code-panel"><summary>View source</summary><pre><code>{sources[entry.id]}</code></pre><a className="text-link text-xs text-muted-foreground" href={`/r/${entry.id}.json`}>Registry JSON</a></details> : <p className="mt-4 text-xs text-muted-foreground">Installed directly from <a className="text-link" href="https://ui.shadcn.com/docs/components">shadcn/ui</a>. Upstream source is unchanged.</p>}
         </>}
         </section>)}

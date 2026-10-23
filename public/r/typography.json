@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typography",
+  "title": "WLKR typography",
+  "description": "Opt-in exact gallery typography and layout, with semantic legacy token bridges.",
+  "files": [
+    {
+      "path": "registry/wlkr/typography.css",
+      "content": "/* Opt-in WLKR gallery typography. Load the application's licensed Geist font first. */\n.wlkr-typography {\n  font-family: var(--font-sans, var(--font-geist-sans, Geist, Arial, Helvetica, sans-serif));\n  --paper: var(--background, #fff);\n  --ink: var(--foreground, #010101);\n  --line: var(--border, #dedede);\n}\n.wlkr-layout { max-width:1512px; margin-inline:auto; padding-inline:6.2%; }\n.wlkr-display { font-family:var(--font-sans, var(--font-geist-sans, Geist, Arial, Helvetica, sans-serif)); font-size:clamp(64px,8.3vw,124px); line-height:.96; font-weight:620; letter-spacing:-.078em; }\n.wlkr-intro-copy { max-width:34rem; font-size:16px; line-height:1.6; color:var(--muted-foreground,#696969); }\n.wlkr-reading { max-width:70ch; font-size:14px; line-height:1.75; }\n.wlkr-caption { font-size:12px; line-height:1.65; color:var(--muted-foreground,#696969); }\n.wlkr-stack { display:flex; flex-direction:column; gap:24px; }\n@media(max-width:900px){.wlkr-layout{padding-inline:6%}.wlkr-intro-copy{font-size:15px}}\n@media(max-width:620px){.wlkr-display{font-size:68px}.wlkr-intro-copy{max-width:300px}}\n",
+      "type": "registry:file",
+      "target": "styles/wlkr-typography.css"
+    }
+  ],
+  "type": "registry:style"
+}

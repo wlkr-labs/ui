@@ -157,6 +157,87 @@
           "color-success": "var(--success)"
         }
       }
+    },
+    {
+      "name": "page-intro",
+      "type": "registry:component",
+      "title": "Page intro",
+      "description": "Gallery typography with a width-stable binary heading reveal.",
+      "author": "WLKR Labs",
+      "files": [
+        {
+          "path": "registry/wlkr/page-intro.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/page-intro.tsx"
+        }
+      ]
+    },
+    {
+      "name": "index-row",
+      "type": "registry:component",
+      "title": "Index row",
+      "description": "Borderless index link with three fixed digits that roll on hover and focus.",
+      "author": "WLKR Labs",
+      "files": [
+        {
+          "path": "registry/wlkr/index-row.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/index-row.tsx"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "text-link",
+      "type": "registry:component",
+      "title": "Text link",
+      "description": "A normal text link with an optional keyboard-accessible Radix HoverCard preview.",
+      "author": "WLKR Labs",
+      "files": [
+        {
+          "path": "registry/wlkr/text-link.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/text-link.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "hover-card"
+      ]
+    },
+    {
+      "name": "theme-toggle",
+      "type": "registry:component",
+      "title": "Theme toggle",
+      "description": "Basic shadcn Toggle with light, dark and system-aware persistence.",
+      "author": "WLKR Labs",
+      "files": [
+        {
+          "path": "registry/wlkr/theme-toggle.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/theme-toggle.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "typography",
+      "type": "registry:style",
+      "title": "WLKR typography",
+      "description": "Opt-in exact gallery typography and layout, with semantic legacy token bridges.",
+      "files": [
+        {
+          "path": "registry/wlkr/typography.css",
+          "type": "registry:file",
+          "target": "styles/wlkr-typography.css"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-link",
+  "title": "Text link",
+  "author": "WLKR Labs",
+  "description": "A normal text link with an optional keyboard-accessible Radix HoverCard preview.",
+  "registryDependencies": [
+    "hover-card"
+  ],
+  "files": [
+    {
+      "path": "registry/wlkr/text-link.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from \"@/components/ui/hover-card\"\nimport { cn } from \"@/lib/utils\"\n\nexport type TextLinkPreview={title:string;description?:string;image?:string;imageAlt?:string}\nconst styles=`\n.wlkr-text-link{color:inherit;text-decoration:underline;text-decoration-color:var(--muted-foreground,#696969);text-underline-offset:4px;transition:text-decoration-color 130ms ease}\n.wlkr-text-link:hover{text-decoration-color:currentColor}\n.wlkr-text-link:focus-visible{outline:2px solid var(--ring,currentColor);outline-offset:5px}\n.wlkr-link-preview[data-slot=hover-card-content]{width:280px;max-width:calc(100vw - 32px);padding:18px;border:0;border-radius:0;box-shadow:none;background:var(--popover,#fff);color:var(--popover-foreground,#010101);font-size:14px;line-height:1.65}\n.wlkr-link-preview-title{font-size:15px;font-weight:550;letter-spacing:-.3px}\n.wlkr-link-preview-copy{margin-top:6px;color:var(--muted-foreground,#696969)}\n.wlkr-link-preview-image{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:12px}\n@media(prefers-reduced-motion:reduce){.wlkr-text-link{transition:none}.wlkr-link-preview{animation:none!important}}\n`\n/** Optional nonessential preview opens on hover and keyboard focus. The anchor always navigates normally. */\nexport function TextLink({preview,children,className,onFocus,onBlur,onKeyDown,...props}:React.ComponentProps<\"a\">&{preview?:TextLinkPreview}) {\n  const [open,setOpen]=React.useState(false)\n  const id=React.useId()\n  const link=<a {...props} className={cn(\"wlkr-text-link\",className)} aria-describedby={open&&preview?id:props[\"aria-describedby\"]} onFocus={event=>{onFocus?.(event);if(!event.defaultPrevented)setOpen(true)}} onBlur={event=>{onBlur?.(event);setOpen(false)}} onKeyDown={event=>{onKeyDown?.(event);if(event.key===\"Escape\")setOpen(false)}}>{children}</a>\n  return <><style>{styles}</style>{preview?<HoverCard open={open} onOpenChange={setOpen} openDelay={180} closeDelay={100}><HoverCardTrigger asChild>{link}</HoverCardTrigger><HoverCardContent id={id} className=\"wlkr-link-preview\" sideOffset={12} align=\"start\">{preview.image&&<img className=\"wlkr-link-preview-image\" src={preview.image} alt={preview.imageAlt??\"\"} loading=\"lazy\"/>}<p className=\"wlkr-link-preview-title\">{preview.title}</p>{preview.description&&<p className=\"wlkr-link-preview-copy\">{preview.description}</p>}</HoverCardContent></HoverCard>:link}</>\n}\n",
+      "type": "registry:component",
+      "target": "components/wlkr/text-link.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

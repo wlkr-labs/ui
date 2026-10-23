@@ -1,0 +1,95 @@
+# Page components — local draft
+
+These five additions and PixelObject morphing are local review work. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged: five original components plus the theme. The local registry has nine original components plus typography and theme (11 items). No public deployment is authorized for this draft.
+
+## Install locally with the standard CLI
+
+Keep an existing consumer’s public `@wlkr` namespace configuration unchanged. Install unpublished items by direct local URLs:
+
+```sh
+pnpm dlx shadcn@latest add http://localhost:3100/r/typography.json http://localhost:3100/r/page-intro.json http://localhost:3100/r/index-row.json http://localhost:3100/r/text-link.json http://localhost:3100/r/theme-toggle.json
+pnpm dlx shadcn@latest add http://localhost:3100/r/pixel-object.json
+```
+
+Run the registry’s build and local static preview first. The stock CLI rewrites component imports to the consumer’s configured aliases and installs HoverCard and Toggle directly from shadcn. Stock primitive source remains unchanged and is never republished as a WLKR item. Installed draft source can differ from published registry source; record the local URL, source checkout, and verification revision with the adoption.
+
+## Typography and layout
+
+`typography` is a registry style item containing `styles/wlkr-typography.css`. The CLI places it under the configured source tree (for example, `src/styles/wlkr-typography.css` in Astro). Import the actual printed path into the existing global stylesheet. If the two files share a directory:
+
+```css
+@import "./wlkr-typography.css";
+```
+
+The stylesheet adds opt-in classes, with the exact gallery font scale and layout values. It does not reset body styles, install another font, or replace theme tokens. The application supplies its existing licensed Geist font through its font variables.
+
+| Class | Gallery contract |
+| --- | --- |
+| `wlkr-typography` | Existing Geist stack; legacy `--paper`, `--ink`, and `--line` bridge to background, foreground, and border. |
+| `wlkr-layout` | 1512 px maximum, centered, 6.2% inline padding; 6% under 900 px. |
+| `wlkr-display` | `clamp(64px, 8.3vw, 124px)`, .96 line height, weight 620, -.078em tracking; 68 px under 620 px. |
+| `wlkr-intro-copy` | 16 px/1.6, supporting text token; 15 px under 900 px. |
+| `wlkr-reading` | 14 px/1.75, maximum 70 characters wide. |
+| `wlkr-caption` | 12 px/1.65, supporting text token. |
+| `wlkr-stack` | Vertical flex stack with 24 px gap. |
+
+For a legacy website, migrate text-color uses of `--muted` to `--muted-foreground`: shadcn’s `--muted` means a surface. Preserve existing sizes through component composition classes where a website’s established scale differs.
+
+## APIs
+
+### PageIntro
+
+```tsx
+<PageIntro
+  title={"Useful things.\nThoughtfully built."}
+  description="A clear starting point."
+  as="h1"
+  titleClassName="existing-site-title"
+  duration={1100}
+/>
+```
+
+Props: required `title: string`; optional React-node description, heading `as` (`h1`/`h2`), wrapper className, titleClassName, reveal (default true), and duration in ms (default 1100, clamped 400–3000).
+
+The final heading is present in server HTML and accessibility APIs. Whole words preserve actual font shaping and measured width; a clipped binary overlay reveals into those fixed final positions. The screen reader receives only the final title. Reveal runs once when visible, ends immediately for reduced motion or a hidden document, and cleans up its observer/frame/listeners. `reveal={false}` restores final text immediately. Title styles have low specificity so titleClassName can preserve an established site scale.
+
+### IndexRow
+
+```tsx
+<IndexRow number={7} title="Brand Studio" description="A clear identity." href="/projects/studio">
+  In progress
+</IndexRow>
+```
+
+A normal anchor accepts native anchor props plus required number/title and optional description/children/className. The number is normalized to exactly three digits. It occupies a fixed 3ch tabular slot and rolls through digit strips on hover **and keyboard focus**, landing on the real value. Reduced motion keeps the number static. The spoken number never changes. CSS animation has no timers or JavaScript frame loop; the title and native navigation remain available throughout.
+
+### TextLink
+
+```tsx
+<TextLink href="/studio" preview={{ title: "Brand Studio", description: "Considered tools for a clear identity." }}>
+  Explore the studio
+</TextLink>
+```
+
+Native anchor props plus optional preview `{ title, description?, image?, imageAlt? }`. Without preview it remains a plain text link. With preview it composes the unchanged stock Radix HoverCard. The preview opens on hover or keyboard focus, Escape dismisses it, and Enter/click still navigate normally. Essential information stays in the link text/page; previews must be supplemental. The content has no outline or shadow, using a semantic popover surface only for legibility. Images remain native HTML to keep the source framework-independent.
+
+### ThemeToggle
+
+```tsx
+<ThemeToggle showLabel />
+```
+
+Optional showLabel (false), className, storageKey (`wlkr-theme`). Uses the unchanged basic shadcn Toggle; no animated theme transition, menu, or new provider. It follows system preference until an explicit light/dark choice is stored, applies `.dark` and color-scheme at document root, and listens to system, cross-window storage, and same-window toggle changes. An in-memory choice works if storage is blocked. The server renders stable readable markup; a consumer can retain its existing theme prepaint script with the same storage key.
+
+## Morphing object
+
+```tsx
+<PixelObject pattern="wave" flickerAmount={.62} flickerSpeed={.32}
+  morph={{ shapes: ["sphere", "cube", "torus"], duration: 8 }} />
+```
+
+See [motion API](motion-components.md) for the same-point continuous interpolation and lifecycle guarantees. Existing props/defaults, custom point clouds, and masks remain compatible.
+
+## Attribution
+
+The binary reveal references [shadcn.io Binary Text](https://www.shadcn.io/text/binary-text); code is independently authored. The rolling number interaction follows the familiar counting-number pattern, implemented with original bounded CSS digit strips. HoverCard and Toggle are installed directly from [shadcn/ui](https://ui.shadcn.com) and use [Radix](https://www.radix-ui.com). Typography comes from the existing WLKR gallery and licensed Geist, with no replacement design system.

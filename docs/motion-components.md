@@ -61,3 +61,9 @@ The component uses CSS animation and no JavaScript frame loop. Intersection, vis
 ## Provenance
 
 All motion/projection code is authored for WLKR. The geometry comes from the approved local brand master `public/wlkr-mark.svg`. Motion references are [Loading UI Bars](https://www.loading-ui.com/docs/components/bars) for staggered vertical pulses and [Loading UI Dots](https://www.loading-ui.com/docs/components/dots) for soft scale/opacity beats. Those reference implementations were not copied. The earlier pixel-field interaction reference is [Magic UI’s Flickering Grid](https://magicui.design/docs/components/flickering-grid). The gallery controls use CLI-installed, unchanged shadcn Slider, NativeSelect, and Field primitives; none are republished as WLKR registry entries.
+
+## Optional continuous shape morph — local draft
+
+The local PixelObject adds `morph?: { shapes?: ("sphere" | "cube" | "torus")[]; duration?: number }`. Omission preserves the published component exactly. When enabled, shapes default to sphere/cube/torus and duration defaults to 8 seconds per transition (clamped 2–60). All targets use the same 420 corresponding points, interpolated with a cosine ease; the loop morphs back to the first shape without swapping point clouds. Custom points or mask take precedence and disable generated morphing.
+
+Morphing uses the existing active timeline and pause/visibility/reduced-motion guards, independently of rotation and flicker. It stops the animation frame loop while paused, hidden, off-screen, or reduced-motion. The local gallery provides one opt-in morph switch; Reset/presets clear it, and Usage includes the actual morph configuration. This API remains unpublished pending review.

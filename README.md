@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `6c34da775eb20b62b4352a360586d100b62399df` contains five original components plus the theme, including expanded PixelObject controls and WLKR loader. Public HTTPS, registry artifacts, gallery interactions, and clean-consumer `@wlkr` installation, build, and rendering are verified. The existing `wlkrlabs.com` website has not been changed or migrated.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `6c34da775eb20b62b4352a360586d100b62399df` contains five original components plus the theme, including expanded PixelObject controls and WLKR loader. Public HTTPS, registry artifacts, gallery interactions, and clean-consumer `@wlkr` installation, build, and rendering are verified. The current local checkout additionally contains four unpublished page components, a typography stylesheet, and optional PixelObject morphing. These are local review additions and are not part of the published release. Website adoption is tracked separately.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `origin` points to that starter for provenance, not a WLKR publishing destination. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -75,7 +75,7 @@ The current `wlkrlabs.com` site uses Astro. Its future adoption needs the offici
 | `wlkr-loader` | Original six-cell WLKR mark with bars/dots beats, fixed SVG bounds, and a single loading announcement | `variant`, `size`, `duration`, `stagger`, `label`, `decorative`, `paused`, `className` |
 | `theme` | Semantic light/dark tokens; app-controlled typography | Apply `.dark` to document root for dark mode |
 
-The public collection contains five original components plus the optional theme. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
+The public collection contains five original components plus the optional theme. The local draft has nine original components, typography styles, and the theme (11 items). See [local page component contracts](docs/page-components.md) for the five unpublished additions and morph API. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
 
 Clipboard requires a secure context (HTTPS or localhost). On failure the selectable command remains available. Async actions require rejected promises for failures: throw when a fetch response is not OK. The preview’s “Simulate a failed save” switch exercises retry. Filter item IDs must be unique; results preserve input ordering.
 
@@ -87,7 +87,7 @@ Filter inputs use the browser’s native text editing and a short focus marker b
 
 Rotation pauses off-screen and in hidden browser tabs, and has an explicit Pause/Resume control. Reduced-motion preferences keep the object static and disable copy/text animation. Pending pixel motion is a 2.8-second, low-amplitude reconstruction; it has no hard flashing. The object rotates slowly (about 42 seconds per revolution), sampled around 12 fps. Effects clean up animation frames and observers on unmount. The interaction reference is [Magic UI’s flickering grid](https://magicui.design/docs/components/flickering-grid); the text mask and object projection here are original WLKR implementations.
 
-The site uses installed, unchanged stock `Button`, `Input`, `Switch`, `Tabs`, `Slider`, `NativeSelect`, and `Field` (plus their upstream helper components). Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
+The site uses installed, unchanged stock `Button`, `Input`, `Switch`, `Tabs`, `Slider`, `NativeSelect`, `Field`, `HoverCard`, and `Toggle` (plus their upstream helper components). Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
 
 ## Design
 

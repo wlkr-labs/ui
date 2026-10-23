@@ -77,3 +77,20 @@ Published source revision: `6c34da775eb20b62b4352a360586d100b62399df`. Cloudflar
 - Browser acceptance of that installed consumer confirmed the customized pixel object using the Wave pattern and running, with Bars and Dots loaders each rendering six running cells. Console warnings and errors: none. Screenshot: `output/playwright/public-motion-installed-consumer.png`. The owned production preview on port 3102 was stopped gracefully after acceptance.
 
 These documentation updates record the immutable published application revision; they do not require another application deployment.
+
+## Page composition additions — local draft, 2026-10-23
+
+Local-only additions: typography/layout styles matching the existing gallery; PageIntro with final SSR text and a width-stable binary overlay; IndexRow with fixed three-digit hover/focus rolling; TextLink composing the unchanged stock Radix HoverCard; and ThemeToggle composing the unchanged basic shadcn Toggle. PixelObject additionally supports continuous same-point sphere/cube/torus morphing with the existing pause/off-screen/hidden/reduced-motion guards. Existing default behavior remains unchanged.
+
+The local catalog contains nine original components, typography styles, and the theme (11 entries). Registry build and source validation passed for all 11; static production build, lint, TypeScript, and diff checks passed. Source, live previews, Usage examples, and search are present in the local gallery. The existing Wrangler preview serves the exported local site at port 3100. Stock HoverCard and Toggle were installed through the official CLI and remain unchanged; no stock source was republished.
+
+These additions and the parallel website adoption are for local review. No publication or deployment was performed for this draft. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged. Browser, consumer, and website integration acceptance are recorded separately once completed.
+
+### Local page-composition acceptance — 2026-10-23
+
+- Gallery browser acceptance passed synchronized header/demo theme toggles in light and dark, keyboard focus opening the TextLink preview, component search filtering to PageIntro and clearing back to the collection, and valid import/Usage examples. Wave plus the opt-in morph switch reported `data-morph="continuous"`; generated Usage included sphere/cube/torus and duration 8. Browser console errors and warnings: none.
+- The gallery PageIntro specimen uses h2, leaving the main editorial hero as the only primary h1; distributed PageIntro source and consumers were unchanged by that gallery fix.
+- The parallel Astro website integration passed its full npm verify command and a dependency audit with zero vulnerabilities. Parent browser acceptance passed at desktop width 1280, mobile widths 390 and 320, and reduced motion. The installed typography and four page components came through standard CLI installation from the local registry; public namespace configuration was retained.
+- Registry static export, lint, TypeScript, source validation for 11 items, and diff checks passed. Final public build-info bytes match the pre-work receipts: ui.wlkrlabs.com remains `6c34da775eb20b62b4352a360586d100b62399df`, and wlkrlabs.com remains `51fc3d16f13e2be37e4ccc4fbc27fc62145153c7`.
+
+The reviewed draft is saved in local Git commits for owner review. No deploy or push was performed.
