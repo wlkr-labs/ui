@@ -35,6 +35,7 @@ After deployment:
 pnpm dlx shadcn@latest add @wlkr/copy-command
 pnpm dlx shadcn@latest add @wlkr/async-action
 pnpm dlx shadcn@latest add @wlkr/filter-list
+pnpm dlx shadcn@latest add @wlkr/pixel-object
 # Optional; review and merge any existing theme tokens before applying.
 pnpm dlx shadcn@latest add @wlkr/theme
 ```
@@ -47,6 +48,7 @@ Original source lands in your configured components directory under `wlkr/`. The
 import { CopyCommand } from "@/components/wlkr/copy-command"
 import { AsyncAction } from "@/components/wlkr/async-action"
 import { FilterList } from "@/components/wlkr/filter-list"
+import { PixelObject } from "@/components/wlkr/pixel-object"
 
 <CopyCommand command="pnpm build" />
 <AsyncAction action={async () => {
@@ -56,6 +58,7 @@ import { FilterList } from "@/components/wlkr/filter-list"
 <FilterList label="Search projects" items={[
   { id: "studio", label: "Brand Studio", description: "Design assets", keywords: ["identity"] },
 ]} />
+<PixelObject label="Pixel sphere" />
 ```
 
 The current `wlkrlabs.com` site uses Astro. Its future adoption needs the official `@astrojs/react` integration, compatible Tailwind/shadcn setup, and interactive React islands (for example `<CopyCommand client:load command="pnpm build" />` in an `.astro` page). Apply the registry setup in that separate website checkout only after acceptance and an explicit adoption change. Review generated files, existing token conflicts, and imports before committing. No runtime component package, custom installer, renderer, or additional MCP server is required.
@@ -64,12 +67,23 @@ The current `wlkrlabs.com` site uses Astro. Its future adoption needs the offici
 
 | Item | Purpose | API |
 | --- | --- | --- |
-| `copy-command` | Clipboard command with confirmed success and manual fallback on failure | `command: string`, optional `className` |
-| `async-action` | One promise at a time, accessible pending/success/error, retry on next click | `action: () => Promise<unknown>`, `children`, optional `pendingLabel`, `successLabel`, `errorLabel`, `disabled` |
+| `copy-command` | Fixed copy icon slot with animated green check/red X and hidden announcements | `command: string`, optional `className` |
+| `async-action` | One promise at a time, accessible pending/success/error, retry on next click | `action: () => Promise<unknown>`, `children`, optional `pendingLabel`, `successLabel`, `failureLabel` (visible), `errorLabel` (announcement), `disabled` |
 | `filter-list` | Search labels, descriptions and keywords; case/accent insensitive multiword match, live count, clear and empty feedback | `items: { id, label, description?, keywords? }[]`, optional `label`, `placeholder` |
+| `pixel-object` | Project a rotating sphere, normalized 3D point cloud, or #/space mask into an SVG pixel grid | optional `points: PixelPoint[]`, `mask: string[]`, `resolution`, `size`, `label`, `rotating`, `className`; exported `spherePoints(count?)` |
 | `theme` | Semantic light/dark tokens; app-controlled typography | Apply `.dark` to document root for dark mode |
 
+The collection contains four original components plus the optional theme. Their interaction styles travel with their source; no site-only stylesheet is required.
+
 Clipboard requires a secure context (HTTPS or localhost). On failure the selectable command remains available. Async actions require rejected promises for failures: throw when a fetch response is not OK. The preview’s “Simulate a failed save” switch exercises retry. Filter item IDs must be unique; results preserve input ordering.
+
+Copy feedback stays in the same 44 px icon slot; screen-reader status remains off-screen. Failure leaves the command selectable. Async labels share one grid slot sized to the widest concise state, so the control does not resize. Its pending label remains fully readable under a slowly moving pixel mask. The failure label stays concise while `errorLabel` announces the reason without another visible line. Success uses `--success` (`#087d3d` on white, `#33f282` in dark mode), with local fallbacks when the optional theme is absent.
+
+Filter inputs use the browser’s native text editing and a short focus marker by the search icon. Native `caret-shape: block` is enabled where supported; other browsers retain their native caret. Selection, IME, touch editing, and browser caret behavior remain native.
+
+`PixelObject` accepts `points` with x/y/z coordinates normalized to [-1, 1], or a flat `mask` array where `#` means filled and spaces/dots mean empty. `mask` takes precedence over `points`. Set `rotating={false}` for static logos, symbols, or masks. The default sphere uses `spherePoints(420)`; you can supply another point cloud. Point clouds are capped at 2,000 points; mask rows and columns at 80, resolution at 8–80, and display size at 64–1,000 px. Give every object a meaningful `label`.
+
+Rotation pauses off-screen and in hidden browser tabs, and has an explicit Pause/Resume control. Reduced-motion preferences keep the object static and disable copy/text animation. Pending pixel motion is a 2.8-second, low-amplitude reconstruction; it has no hard flashing. The object rotates slowly (about 42 seconds per revolution), sampled around 12 fps. Effects clean up animation frames and observers on unmount. The interaction reference is [Magic UI’s flickering grid](https://magicui.design/docs/components/flickering-grid); the text mask and object projection here are original WLKR implementations.
 
 The site uses installed, unchanged stock `Button`, `Input`, `Switch`, and `Tabs`. Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
 

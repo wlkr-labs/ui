@@ -6,7 +6,8 @@
   "cssVars": {
     "theme": {
       "color-brand": "var(--brand)",
-      "color-brand-foreground": "var(--brand-foreground)"
+      "color-brand-foreground": "var(--brand-foreground)",
+      "color-success": "var(--success)"
     },
     "light": {
       "radius": ".375rem",
@@ -29,7 +30,8 @@
       "input": "#dedede",
       "ring": "#087d3d",
       "brand": "#33f282",
-      "brand-foreground": "#010101"
+      "brand-foreground": "#010101",
+      "success": "#087d3d"
     },
     "dark": {
       "background": "#010101",
@@ -51,7 +53,8 @@
       "input": "#343434",
       "ring": "#33f282",
       "brand": "#33f282",
-      "brand-foreground": "#010101"
+      "brand-foreground": "#010101",
+      "success": "#33f282"
     }
   },
   "type": "registry:theme"

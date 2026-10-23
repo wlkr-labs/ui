@@ -2,7 +2,7 @@
 
 Local acceptance for the standalone `wlkr/ui` checkout. The public domain remains a deployment target; no deployment was performed.
 
-## Registry and consumer
+## Initial registry and consumer acceptance
 
 - Registry schema validation passed with four items: three original components and the optional theme.
 - `pnpm registry:build` passed and produced four static item endpoints under `/r/`, plus the registry catalog.
@@ -21,3 +21,21 @@ Local acceptance for the standalone `wlkr/ui` checkout. The public domain remain
 ## Final checks and scope
 
 Production build, lint, TypeScript check, and `git diff --check` passed after the focus fix. The existing Astro website remained Git-clean and unchanged. No DNS, hosting, external repository, or website migration occurred.
+
+## Interaction refinements
+
+The refined collection has five registry entries: four original components plus the theme. Copy feedback now occupies one stable icon slot; async feedback shares one reserved control slot with pixel-mask pending text. Filter inputs use native block-caret progressive enhancement and a short focus marker. The new `pixel-object` accepts a point cloud or mask, with a rotating sphere demo and pause/off-screen/reduced-motion controls.
+
+Production build, five-item registry build, lint, and TypeScript checks passed for this refinement. Updated clean-consumer installation and browser interaction acceptance are recorded separately once completed. The initial acceptance above remains a record of the earlier three-component version.
+
+### Refinement browser and consumer acceptance — 2026-10-23
+
+- Clean namespace installation passed for all four originals plus the theme. The consumer fixture mounted all four installed components and its production build passed.
+- Copy command section height was identical before and after copying: 552.984375 px.
+- Async section height stayed 552.984375 px across idle, pending, success, and failure; the button width stayed 162.3828125 px. Pending text used `wlkr-action-reconstruct`. Success icon color was `rgb(8, 125, 61)`; failure icon color was `rgb(180, 35, 24)`. Failure showed only “Try again” in the existing control. The detailed status remained absolutely positioned and hidden from visual layout.
+- Input computed styles confirmed native `caret-shape: block`, no outline, and no box shadow. Searching for “weather” returned one result.
+- PixelObject rendered 350 SVG rectangles while running on desktop. User pause changed `data-motion` to `paused`. Reduced motion paused the object and disabled pending-text animation. Moving the object off-screen by navigating to installation also paused it.
+- At 390 px mobile width, document scroll width remained 390 px. Local captures: `output/playwright/pixel-object-mobile.png` and `output/playwright/async-inline-failure.png`.
+- Browser console errors and warnings: none.
+
+No public deployment, DNS change, or existing website modification was performed.

@@ -17,10 +17,19 @@ export function FilterList({ items, label = "Search items", placeholder = "Find 
   const results = items.filter(item => words.every(word => normalize([item.label, item.description, ...(item.keywords ?? [])].join(" ")).includes(word)))
   return (
     <div className="flex w-full flex-col gap-5">
-      <div className="flex items-center gap-3">
+      <style>{`
+.wlkr-filter-search{position:relative}
+.wlkr-filter-search:focus-within>svg{color:var(--foreground,currentColor)}
+.wlkr-filter-search:focus-within::after{content:"";position:absolute;left:0;bottom:1px;width:16px;height:2px;background:var(--foreground,currentColor)}
+.wlkr-filter-input[data-slot=input]:focus-visible{outline:none;box-shadow:none;border-color:transparent}
+.wlkr-filter-input[data-slot=input]{border:0;box-shadow:none;background:none;border-radius:0}
+.wlkr-filter-input{caret-color:var(--foreground,currentColor)}
+@supports(caret-shape:block){.wlkr-filter-input{caret-shape:block}}
+      `}</style>
+      <div className="wlkr-filter-search flex items-center gap-3">
         <Search className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
         <label htmlFor={id} className="sr-only">{label}</label>
-        <Input ref={input} id={id} type="search" placeholder={placeholder} value={query} onChange={event => setQuery(event.target.value)} aria-describedby={`${id}-count`} />
+        <Input className="wlkr-filter-input" ref={input} id={id} type="search" placeholder={placeholder} value={query} onChange={event => setQuery(event.target.value)} aria-describedby={`${id}-count`} />
         {query && <Button type="button" variant="ghost" size="icon" aria-label="Clear search" onClick={() => { setQuery(""); input.current?.focus() }}><X /></Button>}
       </div>
       <p id={`${id}-count`} role="status" className="text-xs text-muted-foreground">{results.length} {results.length === 1 ? "result" : "results"}</p>
