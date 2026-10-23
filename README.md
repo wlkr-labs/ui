@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). Public source release `2935308d0e1a68df26bbba95a6cadcf38bf8719f` contains eleven original components, opt-in typography, and semantic light/dark theme (13 items). HTTPS build identity and every registry JSON endpoint match the release receipt. Fresh public-namespace installation, TypeScript/Vite build, and browser acceptance passed; see [verification](docs/verification.md). Website adoption is tracked separately.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). Public source release `5d31d9d4c70c20700ff08c3ac140b6496eae0d6d` contains eleven original components, opt-in typography, and semantic light/dark theme (13 items). HTTPS build identity and every registry JSON endpoint match the release receipt. Fresh public-namespace installation, TypeScript/Vite build, and browser acceptance passed; see [verification](docs/verification.md). Website adoption is tracked separately.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `upstream` preserves that starter for provenance. `origin` points to the public [wlkr-labs/ui source repository](https://github.com/wlkr-labs/ui). Repository publication does not deploy either website. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -92,7 +92,13 @@ Filter inputs use the browser’s native text editing and a short focus marker b
 
 Rotation pauses off-screen and in hidden browser tabs. Click/tap or Enter/Space on the animation toggles pause without a separate transport. Reduced-motion preferences keep the object static and disable copy/text animation. Pending pixel motion is a 2.8-second, low-amplitude reconstruction; it has no hard flashing. The object rotates slowly (about 42 seconds per revolution), sampled around 12 fps. Effects clean up animation frames and observers on unmount. The interaction reference is [Magic UI’s flickering grid](https://magicui.design/docs/components/flickering-grid); the text mask and object projection here are original WLKR implementations.
 
-The site uses installed, unchanged stock `Button`, `Input`, `Switch`, `Tabs`, `Slider`, `NativeSelect`, `Field`, `HoverCard`, `Toggle`, `ToggleGroup`, and `Tooltip` (plus their upstream helper components). Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
+The site uses installed, unchanged stock `Button`, `Input`, `Switch`, `Tabs`, `Slider`, `Command`, `Popover`, `Collapsible`, `Field`, `HoverCard`, `Toggle`, `ToggleGroup`, and `Tooltip` (plus their upstream helper components). Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
+
+## Gallery controls and source panels
+
+All gallery choice controls use the approved Soft combobox, composed from unchanged stock Command and Radix Popover. Its rounded rectangular popup shares `--control-surface` with the code panels: `#fafafa` in light mode and `#090909` in dark mode. Search, keyboard selection, empty states, and focus return stay accessible. These gallery controls are not additional registry items.
+
+Source panels provide line numbers, exact raw-text copy, and wrapping. Static syntax highlighting runs at build time with Shiki; the client receives highlighted markup without a highlighter engine. Dynamic examples remain readable plain code as their values change. Stock Collapsible powers quiet disclosure motion and respects reduced motion. The archived `/prototypes/controls` comparison route is marked `noindex, nofollow`.
 
 ## Design
 
@@ -107,7 +113,7 @@ Paper white `#ffffff`, ink `#010101`, neutral secondary text, and WLKR green `#3
 - WLKR’s existing mark, favicon, and licensed Geist font are reused from the WLKR Labs brand masters. Branding remains WLKR Labs property; no rights to its marks are granted by the source license.
 - Original component code: MIT, see `LICENSE`.
 
-The public site runs on its own Cloudflare static Worker, `wlkr-ui`, at `ui.wlkrlabs.com`. The main website and its Worker remain unchanged. See [release verification](docs/verification.md) for the exact published source revision and acceptance evidence. No external source repository was created or pushed.
+The public site runs on its own Cloudflare static Worker, `wlkr-ui`, at `ui.wlkrlabs.com`. The main website and its Worker remain unchanged. See [release verification](docs/verification.md) for the exact published source revision and acceptance evidence. Source is published in the public [wlkr-labs/ui repository](https://github.com/wlkr-labs/ui).
 
 ## Static Cloudflare release
 
@@ -115,4 +121,4 @@ See [the deployment runbook](docs/deployment.md). `pnpm deploy:check` builds and
 
 ## GitHub star
 
-`GithubStar` links to a repository with a count supplied by the application. It does not fetch or mutate GitHub stars. Rolling tabular digits, a bottom-up WLKR-green fill, and twelve bounded particles replay on hover/focus after the initial visible reveal; reduced motion renders the final count and star. Pass `count={null}` when the count is unavailable. See [API and attribution](docs/github-star.md). Published source: `2935308d0e1a68df26bbba95a6cadcf38bf8719f`.
+`GithubStar` links to a repository with a count supplied by the application. It does not fetch or mutate GitHub stars. Rolling tabular digits, a bottom-up WLKR-green fill, and twelve bounded particles replay on hover/focus after the initial visible reveal; reduced motion renders the final count and star. Pass `count={null}` when the count is unavailable. See [API and attribution](docs/github-star.md). Published source: `5d31d9d4c70c20700ff08c3ac140b6496eae0d6d`.

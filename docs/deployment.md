@@ -1,8 +1,8 @@
 # Static release to ui.wlkrlabs.com
 
-**Live release:** `2935308d0e1a68df26bbba95a6cadcf38bf8719f` (eleven original components, typography, and theme; 13 items), published on 2026-10-23. Cloudflare deployment `69a3b1e9-256a-4b3b-8cd0-5bb3f8531aa4` serves Worker version `48754c13-30e6-42d4-8421-03c97810b48a` at 100%, created `2026-10-23T18:21:14.681391Z`. All 15 registry JSON URLs match the public build receipt. See [verification](verification.md) for acceptance evidence.
+**Live release:** `5d31d9d4c70c20700ff08c3ac140b6496eae0d6d` (eleven original components, typography, and theme; 13 items), published on 2026-10-23. Cloudflare deployment `7e09fe49-e884-4c5c-a39f-82da926bb840` serves Worker version `08d0a08d-520d-4bb5-81ab-cf2b1e3c5208` at 100%, created `2026-10-23T22:38:17.188635Z`. The approved Soft combobox, source-panel, and disclosure changes are live. All 45 checked public files, including the 15 registry JSON URLs, match the export and build receipt. See [verification](verification.md) for public installation and browser acceptance.
 
-Previous recovery release: source `6c34da775eb20b62b4352a360586d100b62399df`, Worker `600ac8d3-8fe7-4d69-b529-4f88cc9b8168`, deployment `1c3eee64-3e17-4f1b-92f3-8a3145b7a7a4`. Historical verification is preserved. The commands below describe repeat releases; later publishing requires its own authorization.
+Previous recovery release: source `2935308d0e1a68df26bbba95a6cadcf38bf8719f`, Worker `48754c13-30e6-42d4-8421-03c97810b48a`, deployment `69a3b1e9-256a-4b3b-8cd0-5bb3f8531aa4`. Earlier source `6c34da775eb20b62b4352a360586d100b62399df` and its receipts remain in the historical verification record. The commands below describe repeat releases; later publishing requires its own authorization.
 
 The site is a Next.js static export. Server components read original source at build time; all browser interactions run in the exported client assets. No Next.js server, adapter, Worker script, secret, runtime binding, or component service is required.
 
