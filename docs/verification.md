@@ -1,6 +1,6 @@
 # Verification — 2026-10-23
 
-Local acceptance for the standalone `wlkr/ui` checkout. The public domain remains a deployment target; no deployment was performed.
+Chronological acceptance for the standalone `wlkr/ui` checkout. Initial local checks preceded the public release recorded below.
 
 ## Initial registry and consumer acceptance
 
@@ -39,3 +39,17 @@ Production build, five-item registry build, lint, and TypeScript checks passed f
 - Browser console errors and warnings: none.
 
 No public deployment, DNS change, or existing website modification was performed.
+
+## Public release — 2026-10-23
+
+Published source revision: `8f87ab3313e943653dfd113d3912160d830cd0f4`. Separate Cloudflare Worker `wlkr-ui`, version `3b5c8346-a7d5-4894-90f3-ae396520dc01`, serves `https://ui.wlkrlabs.com` at 100%. The public build receipt reported the exact source revision.
+
+Immutable release identity: Cloudflare deployment `14b2cdfb-b58c-466d-a01d-c232ae5efdec`, created `2026-10-23T15:26:39.475628Z` (10:26:39 a.m. America/Chicago). The Cloudflare API confirmed the custom domain belongs to service `wlkr-ui`, is enabled, and has a certificate assigned. The main website’s deployment `50111ab6-fa2d-4295-883a-db215a29550c` and its domain/service mapping remained unchanged.
+
+- Public HTTPS passed for both registry catalogs and all five item endpoints: seven valid JSON responses, HTTP 200, with bytes and SHA-256 hashes matching the exported release and revalidation headers. A missing registry item returned 404.
+- The apex website’s build-info bytes stayed unchanged. Its separate Worker, routes, and source were not migrated or modified.
+- Public browser acceptance passed for copy and async geometry across success/failure, filter matching (one result), PixelObject pause and reduced motion, and mobile width 390 px without overflow. Browser console errors: none. Local screenshots: `output/playwright/live-desktop.png`, `output/playwright/live-pixel-object.png`, and `output/playwright/live-mobile.png`.
+- At verification time the Mac’s normal resolver still retained an earlier negative lookup; authoritative DNS and Cloudflare’s 1.1.1.1 resolver returned positive records. Public acceptance ran from an isolated existing Playwright image container using DNS 1.1.1.1 and ordinary public HTTPS, with no hostname mappings or mocked responses.
+- In a fresh Vite/React/Radix consumer inside that disposable container, the standard shadcn CLI listed all five `@wlkr` entries and installed all four original components plus the theme from the public namespace. Stock dependencies came from upstream. The fixture mounted all four originals and passed TypeScript and Vite production build checks. Bundled Chromium rendered the installed copy control, async action, filter list, and pixel object. Searching “weather” returned one result; the async action reached “Changes saved”; PixelObject reported `data-motion="running"`. Browser page errors: none. Screenshot: `output/playwright/public-installed-consumer.png`. The owned disposable container was scheduled for removal after the screenshot was saved.
+
+Public configuration remains restricted to `ui.wlkrlabs.com`; `workers.dev` and preview URLs are disabled. The source receipt is generated in the exported output rather than committed into public source. This documentation update does not change the deployed application revision.

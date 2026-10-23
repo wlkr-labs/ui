@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry for the intended `https://ui.wlkrlabs.com` address. **Production configuration prepared; live release verification pending.** The existing `wlkrlabs.com` website has not been changed or migrated.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). Public HTTPS, registry artifacts, gallery interactions, and standard `@wlkr` CLI installation are verified. The existing `wlkrlabs.com` website has not been changed or migrated.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `origin` points to that starter for provenance, not a WLKR publishing destination. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -29,7 +29,7 @@ Use a React/TypeScript app configured for Tailwind and shadcn. For a new consume
 }
 ```
 
-After deployment:
+Install from the public registry:
 
 ```sh
 pnpm dlx shadcn@latest add @wlkr/copy-command
@@ -100,7 +100,7 @@ Paper white `#ffffff`, ink `#010101`, neutral secondary text, and WLKR green `#3
 - WLKR’s existing mark, favicon, and licensed Geist font are reused from the WLKR Labs brand masters. Branding remains WLKR Labs property; no rights to its marks are granted by the source license.
 - Original component code: MIT, see `LICENSE`.
 
-The public domain is a deployment target. No DNS, hosting, external repository, or existing website was changed by this implementation.
+The public site runs on its own Cloudflare static Worker, `wlkr-ui`, at `ui.wlkrlabs.com`. The main website and its Worker remain unchanged. See [release verification](docs/verification.md) for the exact published source revision and acceptance evidence. No external source repository was created or pushed.
 
 ## Static Cloudflare release
 
