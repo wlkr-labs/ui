@@ -1,17 +1,16 @@
-# Page components — local draft
+# Page components
 
-These page additions, footer controls, and PixelObject morphing are local review work. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged: five original components plus the theme. The local registry has eleven original components plus typography and theme (13 items). No public deployment is authorized for this draft.
+The authorized 13-item release candidate includes eleven original components plus typography and theme. Public release verification is tracked in [verification](verification.md).
 
-## Install locally with the standard CLI
+## Install with the standard CLI
 
-Keep an existing consumer’s public `@wlkr` namespace configuration unchanged. Install unpublished items by direct local URLs:
+Configure `@wlkr` as `https://ui.wlkrlabs.com/r/{name}.json`, then run:
 
 ```sh
-pnpm dlx shadcn@latest add http://localhost:3100/r/typography.json http://localhost:3100/r/page-intro.json http://localhost:3100/r/index-row.json http://localhost:3100/r/text-link.json http://localhost:3100/r/theme-toggle.json http://localhost:3100/r/footer-controls.json
-pnpm dlx shadcn@latest add http://localhost:3100/r/pixel-object.json
+pnpm dlx shadcn@latest add @wlkr/typography @wlkr/page-intro @wlkr/index-row @wlkr/text-link @wlkr/theme-toggle @wlkr/footer-controls @wlkr/pixel-object
 ```
 
-Run the registry’s build and local static preview first. The stock CLI rewrites component imports to the consumer’s configured aliases and installs HoverCard, Toggle, and ToggleGroup directly from shadcn. Stock primitive source remains unchanged and is never republished as a WLKR item. Installed draft source can differ from published registry source; record the local URL, source checkout, and verification revision with the adoption.
+The stock CLI rewrites imports to the consumer’s configured aliases and installs HoverCard, Toggle, ToggleGroup, and Tooltip directly from shadcn. Stock primitive source remains unchanged and is never republished as a WLKR item. For unpublished development only, direct local registry URLs may be used with a running local static preview.
 
 ## Typography and layout
 

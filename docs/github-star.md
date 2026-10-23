@@ -1,9 +1,9 @@
-# GitHub star — local review
+# GitHub star
 
-The local registry contains 13 items; GitHub star is unpublished. The public release remains `6c34da775eb20b62b4352a360586d100b62399df`.
+GitHub star is part of the authorized 13-item release candidate. Exact public release verification is recorded in [verification](verification.md).
 
 ```sh
-pnpm dlx shadcn@latest add http://localhost:3100/r/github-star.json
+pnpm dlx shadcn@latest add @wlkr/github-star
 ```
 
 ```tsx

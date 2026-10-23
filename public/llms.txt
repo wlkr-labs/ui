@@ -2,13 +2,13 @@
 
 React and TypeScript source components, a shadcn-compatible registry, and opt-in WLKR typography.
 
-Status: local review draft. The published release remains 6c34da775eb20b62b4352a360586d100b62399df until an explicitly authorized release.
+Source: https://github.com/wlkr-labs/ui. Build identity: /build-info.json.
 
 ## Installation
 
-Start with a React/Tailwind project configured by the standard shadcn CLI. Published namespace: @wlkr -> https://ui.wlkrlabs.com/r/{name}.json. Unpublished draft items are available from the local registry preview at http://localhost:3100/r/{name}.json. Keep existing public namespace configuration unchanged when reviewing a direct local item URL.
+Start with a React/Tailwind project configured by the standard shadcn CLI. Configure the @wlkr namespace as https://ui.wlkrlabs.com/r/{name}.json.
 
-pnpm dlx shadcn@latest add http://localhost:3100/r/footer-controls.json
+pnpm dlx shadcn@latest add @wlkr/footer-controls
 
 The CLI installs original source and pulls stock shadcn dependencies directly from upstream. No runtime component package, custom installer, or agent service is required.
 
