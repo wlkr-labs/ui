@@ -1,6 +1,6 @@
 # Motion components
 
-The customizer and WLKR loader are live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com), source release `6c34da775eb20b62b4352a360586d100b62399df`. Configure `@wlkr` as `https://ui.wlkrlabs.com/r/{name}.json`, then install `@wlkr/pixel-object` and `@wlkr/wlkr-loader` with the standard shadcn CLI. Clean-consumer installation, TypeScript/Vite build, and browser rendering were verified. For local development, run `pnpm dev --port 3100` and optionally map a disposable consumer to the local namespace.
+The customizer and WLKR loader are live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com), source release `2935308d0e1a68df26bbba95a6cadcf38bf8719f`. Configure `@wlkr` as `https://ui.wlkrlabs.com/r/{name}.json`, then install `@wlkr/pixel-object` and `@wlkr/wlkr-loader` with the standard shadcn CLI. Clean-consumer installation, TypeScript/Vite build, and browser rendering were verified. For local development, run `pnpm dev --port 3100` and optionally map a disposable consumer to the local namespace.
 
 ## PixelObject
 
@@ -66,6 +66,6 @@ All motion/projection code is authored for WLKR. The geometry comes from the app
 
 PixelObject supports `morph?: { shapes?: ("sphere" | "cube" | "torus")[]; duration?: number }`. Omission preserves the original sphere behavior. When enabled, shapes default to sphere/cube/torus and duration defaults to 8 seconds per transition (clamped 2–60). All targets use the same 420 corresponding points, interpolated with a cosine ease; the loop morphs back to the first shape without swapping point clouds. Custom points or mask take precedence and disable generated morphing.
 
-Morphing uses the existing active timeline and pause/visibility/reduced-motion guards, independently of rotation and flicker. It stops the animation frame loop while paused, hidden, off-screen, or reduced-motion. The gallery provides one opt-in morph switch; Reset/presets clear it, and Usage includes the actual morph configuration. This API is included in the authorized release candidate.
+Morphing uses the existing active timeline and pause/visibility/reduced-motion guards, independently of rotation and flicker. It stops the animation frame loop while paused, hidden, off-screen, or reduced-motion. The gallery provides one opt-in morph switch; Reset/presets clear it, and Usage includes the actual morph configuration. This API is published in source release `2935308d0e1a68df26bbba95a6cadcf38bf8719f`.
 
 The component removes separate visible animation transports. PixelObject uses an unstyled native button for an animated canvas; its accessible state is announced without visible Pause/Resume text. The WlkrLoader component itself remains noninteractive; only the gallery wraps a decorative loader in a native click/keyboard toggle.

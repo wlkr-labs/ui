@@ -1,6 +1,6 @@
 # GitHub star
 
-GitHub star is part of the authorized 13-item release candidate. Exact public release verification is recorded in [verification](verification.md).
+GitHub star is published in source release `2935308d0e1a68df26bbba95a6cadcf38bf8719f` (13 registry items). Exact public release verification is recorded in [verification](verification.md).
 
 ```sh
 pnpm dlx shadcn@latest add @wlkr/github-star

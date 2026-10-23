@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `6c34da775eb20b62b4352a360586d100b62399df` contains five original components plus the theme, including expanded PixelObject controls and WLKR loader. Public HTTPS, registry artifacts, gallery interactions, and clean-consumer `@wlkr` installation, build, and rendering are verified. The current local checkout additionally contains six unpublished components, a typography stylesheet, and optional PixelObject morphing. All 13 items are now prepared for an authorized release; public verification is pending. Website adoption is tracked separately.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). Public source release `2935308d0e1a68df26bbba95a6cadcf38bf8719f` contains eleven original components, opt-in typography, and semantic light/dark theme (13 items). HTTPS build identity and every registry JSON endpoint match the release receipt. Fresh public-namespace installation, TypeScript/Vite build, and browser acceptance passed; see [verification](docs/verification.md). Website adoption is tracked separately.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `upstream` preserves that starter for provenance. `origin` points to the public [wlkr-labs/ui source repository](https://github.com/wlkr-labs/ui). Repository publication does not deploy either website. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -37,6 +37,9 @@ pnpm dlx shadcn@latest add @wlkr/async-action
 pnpm dlx shadcn@latest add @wlkr/filter-list
 pnpm dlx shadcn@latest add @wlkr/pixel-object
 pnpm dlx shadcn@latest add @wlkr/wlkr-loader
+pnpm dlx shadcn@latest add @wlkr/page-intro @wlkr/index-row @wlkr/text-link
+pnpm dlx shadcn@latest add @wlkr/theme-toggle @wlkr/footer-controls @wlkr/github-star
+pnpm dlx shadcn@latest add @wlkr/typography
 # Optional; review and merge any existing theme tokens before applying.
 pnpm dlx shadcn@latest add @wlkr/theme
 ```
@@ -62,7 +65,7 @@ import { PixelObject } from "@/components/wlkr/pixel-object"
 <PixelObject label="Pixel sphere" />
 ```
 
-The current `wlkrlabs.com` site uses Astro. Its future adoption needs the official `@astrojs/react` integration, compatible Tailwind/shadcn setup, and interactive React islands (for example `<CopyCommand client:load command="pnpm build" />` in an `.astro` page). Apply the registry setup in that separate website checkout only after acceptance and an explicit adoption change. Review generated files, existing token conflicts, and imports before committing. No runtime component package, custom installer, renderer, or additional MCP server is required.
+The `wlkrlabs.com` site uses Astro. Astro adoption uses the official `@astrojs/react` integration, compatible Tailwind/shadcn setup, and interactive React islands (for example `<CopyCommand client:load command="pnpm build" />` in an `.astro` page). Apply the registry setup in the separate website checkout and verify its React islands before publishing. Review generated files, existing token conflicts, and imports before committing. No runtime component package, custom installer, renderer, or additional MCP server is required.
 
 ## Collection and behavior
 
@@ -75,7 +78,7 @@ The current `wlkrlabs.com` site uses Astro. Its future adoption needs the offici
 | `wlkr-loader` | Original six-cell WLKR mark with bars/dots beats, fixed SVG bounds, and a single loading announcement | `variant`, `size`, `duration`, `stagger`, `label`, `decorative`, `paused`, `className` |
 | `theme` | Semantic light/dark tokens; app-controlled typography | Apply `.dark` to document root for dark mode |
 
-The public collection contains five original components plus the optional theme. The release candidate has eleven original components, typography styles, and the theme (13 items). See [page component contracts](docs/page-components.md) for page additions and the morph API. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
+The public collection has eleven original components, typography styles, and the theme (13 items). See [page component contracts](docs/page-components.md) for page additions and the morph API. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
 
 Clipboard requires a secure context (HTTPS or localhost). On failure the selectable command remains available. Async actions require rejected promises for failures: throw when a fetch response is not OK. The preview’s “Simulate a failed save” switch exercises retry. Filter item IDs must be unique; results preserve input ordering.
 
@@ -112,4 +115,4 @@ See [the deployment runbook](docs/deployment.md). `pnpm deploy:check` builds and
 
 ## GitHub star
 
-`GithubStar` links to a repository with a count supplied by the application. It does not fetch or mutate GitHub stars. Rolling tabular digits, a bottom-up WLKR-green fill, and twelve bounded particles replay on hover/focus after the initial visible reveal; reduced motion renders the final count and star. Pass `count={null}` when the count is unavailable. See [API and attribution](docs/github-star.md). Public release identity is recorded after verification.
+`GithubStar` links to a repository with a count supplied by the application. It does not fetch or mutate GitHub stars. Rolling tabular digits, a bottom-up WLKR-green fill, and twelve bounded particles replay on hover/focus after the initial visible reveal; reduced motion renders the final count and star. Pass `count={null}` when the count is unavailable. See [API and attribution](docs/github-star.md). Published source: `2935308d0e1a68df26bbba95a6cadcf38bf8719f`.

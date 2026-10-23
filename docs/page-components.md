@@ -1,6 +1,6 @@
 # Page components
 
-The authorized 13-item release candidate includes eleven original components plus typography and theme. Public release verification is tracked in [verification](verification.md).
+Public source release `2935308d0e1a68df26bbba95a6cadcf38bf8719f` includes eleven original components plus typography and theme (13 items). Exact verification is tracked in [verification](verification.md).
 
 ## Install with the standard CLI
 

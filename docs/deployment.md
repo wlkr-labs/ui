@@ -1,8 +1,8 @@
 # Static release to ui.wlkrlabs.com
 
-**Live release:** `6c34da775eb20b62b4352a360586d100b62399df` (five originals plus theme), published and publicly verified on 2026-10-23. Cloudflare deployment `1c3eee64-3e17-4f1b-92f3-8a3145b7a7a4` serves Worker version `600ac8d3-8fe7-4d69-b529-4f88cc9b8168` at 100%. See [verification](verification.md) for exact public acceptance evidence. The commands below describe repeat releases; later publishing still requires its own authorization.
+**Live release:** `2935308d0e1a68df26bbba95a6cadcf38bf8719f` (eleven original components, typography, and theme; 13 items), published on 2026-10-23. Cloudflare deployment `69a3b1e9-256a-4b3b-8cd0-5bb3f8531aa4` serves Worker version `48754c13-30e6-42d4-8421-03c97810b48a` at 100%, created `2026-10-23T18:21:14.681391Z`. All 15 registry JSON URLs match the public build receipt. See [verification](verification.md) for acceptance evidence.
 
-The authorized release candidate contains 13 items: eleven original components, typography, and theme. Public verification of the candidate is pending; the prior live identity above remains the recovery reference.
+Previous recovery release: source `6c34da775eb20b62b4352a360586d100b62399df`, Worker `600ac8d3-8fe7-4d69-b529-4f88cc9b8168`, deployment `1c3eee64-3e17-4f1b-92f3-8a3145b7a7a4`. Historical verification is preserved. The commands below describe repeat releases; later publishing requires its own authorization.
 
 The site is a Next.js static export. Server components read original source at build time; all browser interactions run in the exported client assets. No Next.js server, adapter, Worker script, secret, runtime binding, or component service is required.
 
