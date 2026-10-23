@@ -1,0 +1,81 @@
+"use client"
+
+import * as React from "react"
+import Image from "next/image"
+import { ArrowDown, ArrowUpRight, Check, Moon, Search, Sun, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { CopyCommand } from "@/registry/wlkr/copy-command"
+import { AsyncAction } from "@/registry/wlkr/async-action"
+import { FilterList } from "@/registry/wlkr/filter-list"
+
+const entries = [
+  { id: "copy-command", name: "Copy command", description: "One command. One click. Clear feedback when it works, a useful fallback when it doesn’t.", keywords: "clipboard install terminal copy" },
+  { id: "async-action", name: "Async action", description: "An action that follows through. Pending, success, and a second chance when something goes wrong.", keywords: "button save loading promise error retry" },
+  { id: "filter-list", name: "Filter list", description: "Find the thing you came for. A small, accessible search for lists that don’t need a whole search engine.", keywords: "search input empty list filter" },
+  { id: "primitives", name: "Primitives", description: "Good foundations, straight from shadcn/ui. We use the originals, with WLKR’s shared design tokens.", keywords: "button input switch shadcn stock" },
+  { id: "foundations", name: "Foundations", description: "A common language for what comes next. Semantic color, considered type, and space to think.", keywords: "theme tokens color typography design dark light" },
+]
+const projects = [
+  { id: "studio", label: "Brand Studio", description: "The source of truth for a considered identity.", keywords: ["design", "assets"] },
+  { id: "weather", label: "WeatherGoblin", description: "A little character in your daily forecast.", keywords: ["weather", "app"] },
+  { id: "bible", label: "PatriBible", description: "Scripture, thoughtfully within reach.", keywords: ["reader", "search"] },
+]
+const examples: Record<string, string> = {
+  "copy-command": `import { CopyCommand } from "@/components/wlkr/copy-command"\n\n<CopyCommand command="pnpm dlx shadcn@latest add @wlkr/copy-command" />`,
+  "async-action": `import { AsyncAction } from "@/components/wlkr/async-action"\n\n<AsyncAction\n  action={async () => {\n    const response = await fetch("/api/settings", { method: "POST" })\n    if (!response.ok) throw new Error("Save failed")\n  }}\n  pendingLabel="Saving changes…"\n  successLabel="Changes saved"\n>\n  Save changes\n</AsyncAction>`,
+  "filter-list": `import { FilterList } from "@/components/wlkr/filter-list"\n\n<FilterList\n  label="Search projects"\n  items={[\n    { id: "studio", label: "Brand Studio", keywords: ["design"] },\n    { id: "weather", label: "WeatherGoblin", description: "Your forecast." },\n  ]}\n/>`,
+  primitives: `import { Button } from "@/components/ui/button"\nimport { Input } from "@/components/ui/input"\nimport { Switch } from "@/components/ui/switch"\n\n<Button variant="ghost">Continue</Button>\n<label htmlFor="name">Your name</label>\n<Input id="name" placeholder="Alex Walker" />\n<Switch aria-label="Enable notifications" />`,
+}
+
+function Demo({ id }: { id: string }) {
+  const [failure, setFailure] = React.useState(false)
+  const [notifications, setNotifications] = React.useState(true)
+  const [continued, setContinued] = React.useState(false)
+  if (id === "copy-command") return <CopyCommand command="pnpm dlx shadcn@latest add @wlkr/copy-command" />
+  if (id === "async-action") return <div><div className="demo-actions"><AsyncAction action={async () => { await new Promise(resolve => setTimeout(resolve, 1100)); if (failure) throw new Error("Demo failure") }} pendingLabel="Saving changes…" successLabel="Changes saved" errorLabel="Changes weren’t saved. Turn off the error simulation and try again.">Save changes</AsyncAction></div><label className="demo-option"><Switch checked={failure} onCheckedChange={setFailure} aria-label="Simulate a failed save" />Simulate a failed save</label></div>
+  if (id === "filter-list") return <FilterList items={projects} label="Search projects" placeholder="Search projects…" />
+  return <div className="flex flex-col gap-7"><div className="demo-actions"><Button variant="ghost" onClick={() => setContinued(!continued)}>{continued ? <Check data-icon="inline-start" /> : <ArrowUpRight data-icon="inline-start" />}{continued ? "You’re all set" : "Continue"}</Button><label className="flex min-h-11 items-center gap-3 text-sm"><Switch checked={notifications} onCheckedChange={setNotifications} />Notifications {notifications ? "on" : "off"}</label></div><div><label htmlFor="demo-name" className="sr-only">Your name</label><Input id="demo-name" placeholder="Your name" autoComplete="name" /></div></div>
+}
+
+export function Showcase({ sources }: { sources: Record<string, string> }) {
+  const [query, setQuery] = React.useState("")
+  const searchRef = React.useRef<HTMLInputElement>(null)
+  React.useEffect(() => {
+    const keydown = (event: KeyboardEvent) => { if ((event.metaKey || event.ctrlKey) && event.key === "k") { event.preventDefault(); searchRef.current?.focus(); searchRef.current?.scrollIntoView({ block: "center" }) } }
+    window.addEventListener("keydown", keydown)
+    return () => window.removeEventListener("keydown", keydown)
+  }, [])
+  function toggleTheme() {
+    const next = document.documentElement.classList.contains("dark") ? "light" : "dark"
+    document.documentElement.classList.toggle("dark", next === "dark")
+    try { localStorage.setItem("wlkr-theme", next) } catch { /* Theme still works when storage is disabled. */ }
+  }
+  const filtered = entries.filter(entry => `${entry.name} ${entry.description} ${entry.keywords}`.toLowerCase().includes(query.toLowerCase().trim()))
+  return <div className="site shell">
+    <a href="#collection" className="sr-only focus:not-sr-only">Skip to components</a>
+    <header className="site-header">
+      <a href="#" className="identity" aria-label="wlkr/ui home"><Image className="brand-mark" src="/wlkr-mark.svg" alt="" width={27} height={31} priority /><span>wlkr<span className="text-muted-foreground">/</span>ui</span></a>
+      <nav className="header-nav" aria-label="Main navigation"><a href="#collection">Components</a><a href="#installation">Get started</a><a className="desktop-link" href="https://wlkrlabs.com" target="_blank" rel="noreferrer">WLKR Labs</a><button type="button" className="icon-button" aria-label="Toggle color theme" title="Toggle color theme" onClick={toggleTheme}><Sun className="theme-sun" /><Moon className="theme-moon" /></button></nav>
+    </header>
+    <main>
+      <div className="hero"><h1>Interfaces,<br />reduced.</h1><div className="hero-note"><p>Useful components.<br />Thoughtful defaults.<br />Source you own.</p><a href="#collection">Explore the collection <ArrowDown aria-hidden="true" /></a></div></div>
+      <div className="workbench" id="collection">
+        <aside className="index" aria-label="Component index"><p className="index-label">The collection</p><div className="search-row"><Search aria-hidden="true" /><label className="sr-only" htmlFor="component-search">Search components</label><input ref={searchRef} id="component-search" type="search" placeholder="Search components…" value={query} onChange={event => setQuery(event.target.value)} />{query && <button className="icon-button" aria-label="Clear component search" onClick={() => { setQuery(""); searchRef.current?.focus() }}><X /></button>}</div><nav className="index-links" aria-label="Components">{filtered.map((entry, i) => <a className={i === 0 ? "active" : ""} key={entry.id} href={`#${entry.id}`}>{entry.name}</a>)}</nav><p className="index-foot" role="status">{query ? `${filtered.length} matching sections` : "Three originals. A shared language."}</p></aside>
+        <div className="min-w-0">{filtered.length === 0 && <div className="component-section"><h2 className="text-2xl tracking-tight">Nothing here by that name.</h2><p className="mt-3 text-sm text-muted-foreground">Try “copy”, “search”, or “theme”.</p><Button variant="ghost" onClick={() => setQuery("")}>Clear search</Button></div>}
+        {filtered.map(entry => <section className="component-section" id={entry.id} key={entry.id} aria-labelledby={`${entry.id}-title`}><div className="component-heading"><div><h2 id={`${entry.id}-title`}>{entry.name}</h2><p>{entry.description}</p></div><span className="component-origin">{entry.id === "primitives" ? "shadcn/ui" : entry.id === "foundations" ? "WLKR system" : "WLKR original"}</span></div>
+        {entry.id === "foundations" ? <div className="foundation"><div className="swatches">{[["Canvas", "var(--background)"], ["Ink", "var(--foreground)"], ["Quiet", "var(--muted-foreground)"], ["WLKR green", "var(--brand)"]].map(([name, color]) => <div className="swatch" key={name}><i style={{background:color}} /><span>{name}</span></div>)}</div><h3>Meaning before appearance.</h3><p>Canvas, foreground, muted, and accent describe a purpose. Their values change with the light. Green marks a useful moment; it never has to carry the message alone.</p><h3 className="mt-8">One typeface. Room to breathe.</h3><p>Geist. A compact scale. Tight display typography and comfortable reading lengths. Focus stays visible. Motion follows interaction and respects reduced-motion preferences.</p><div className="install-line mt-5"><CopyCommand command="pnpm dlx shadcn@latest add @wlkr/theme" /></div><details className="code-panel"><summary>Token reference</summary><pre>{`--background     Canvas\n--foreground     Primary text\n--muted-foreground  Supporting text\n--primary        Primary action\n--destructive    Failure feedback\n--ring           Keyboard focus\n--brand          #33F282\n--brand-foreground #010101\n\nApply .dark to the document root for dark mode.\nThe theme leaves your app’s typography unchanged.`}</pre></details></div> : <>
+        <Tabs defaultValue="preview" className="docs-tabs mt-6"><TabsList aria-label={`${entry.name} view`}><TabsTrigger value="preview">Preview</TabsTrigger><TabsTrigger value="usage">Usage</TabsTrigger></TabsList><TabsContent value="preview"><div className="preview"><div className="preview-content"><Demo id={entry.id} /></div></div></TabsContent><TabsContent value="usage"><div className="code-panel"><pre><code>{examples[entry.id]}</code></pre></div></TabsContent></Tabs>
+        <div className="install-line"><CopyCommand command={entry.id === "primitives" ? "pnpm dlx shadcn@latest add button input switch" : `pnpm dlx shadcn@latest add @wlkr/${entry.id}`} /></div>
+        {sources[entry.id] ? <details className="code-panel"><summary>View source</summary><pre><code>{sources[entry.id]}</code></pre><a className="text-link text-xs text-muted-foreground" href={`/r/${entry.id}.json`}>Registry JSON</a></details> : <p className="mt-4 text-xs text-muted-foreground">Installed directly from <a className="text-link" href="https://ui.shadcn.com/docs/components">shadcn/ui</a>. Upstream source is unchanged.</p>}
+        </>}
+        </section>)}
+        <section className="get-started" id="installation" aria-labelledby="installation-title"><h2 id="installation-title">Make it yours.</h2><p>Copy the source into your project with the shadcn CLI. Keep what you need. Change what you like. No component runtime to subscribe to.</p><h3>1. Start with shadcn</h3><CopyCommand command="pnpm dlx shadcn@latest init" /><p>Use an existing React, TypeScript, and Tailwind project. Already configured? Continue below.</p><h3>2. Add the namespace</h3><p>Merge this entry into the registries field of your project’s components.json.</p><pre><code>{`"registries": {\n  "@wlkr": "https://ui.wlkrlabs.com/r/{name}.json"\n}`}</code></pre><h3>3. Bring a component home</h3><CopyCommand command="pnpm dlx shadcn@latest add @wlkr/copy-command" /><p>Originals install to components/wlkr. Their stock primitives come directly from shadcn. The optional theme adds light and dark color tokens.</p><h3>Using it at wlkrlabs.com</h3><p>The current website uses Astro. Future adoption first needs the official @astrojs/react integration and compatible Tailwind/shadcn setup. Import these React components into an Astro page with a client:load directive for interactive islands. Review generated source and token conflicts in a separate website change; the existing site stays unchanged here.</p><p className="mt-6">Local preview: use <code>http://localhost:3100/r/{"{name}"}.json</code> as the namespace URL. The public address is reserved for deployment.</p><p className="mt-6">Built with <a className="text-link" href="https://ui.shadcn.com">shadcn/ui</a>, <a className="text-link" href="https://www.radix-ui.com">Radix</a>, <a className="text-link" href="https://lucide.dev">Lucide</a>, and <a className="text-link" href="https://vercel.com/font">Geist</a>. Based on the official <a className="text-link" href="https://github.com/shadcn-ui/registry-template">registry starter</a>. WLKR originals are MIT licensed.</p></section>
+        </div>
+      </div>
+    </main>
+    <footer className="site-footer"><a href="https://wlkrlabs.com">A WLKR Labs project.</a><div><a href="/registry.json">Registry</a><a href="#installation">Installation</a><span>Built with intention.</span></div></footer>
+  </div>
+}

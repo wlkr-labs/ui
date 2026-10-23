@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-command",
+  "title": "Copy command",
+  "author": "WLKR Labs",
+  "description": "A copyable command with honest clipboard feedback and a manual fallback.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/wlkr/copy-command.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Check, Copy } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\n/** A copyable command that reports success only after the clipboard accepts it. */\nexport function CopyCommand({ command, className }: { command: string; className?: string }) {\n  const [state, setState] = React.useState<\"idle\" | \"copying\" | \"copied\" | \"error\">(\"idle\")\n  const timer = React.useRef<ReturnType<typeof setTimeout> | null>(null)\n  React.useEffect(() => () => { if (timer.current) clearTimeout(timer.current) }, [])\n  async function copy() {\n    if (timer.current) clearTimeout(timer.current)\n    setState(\"copying\")\n    try {\n      await navigator.clipboard.writeText(command)\n      setState(\"copied\")\n      timer.current = setTimeout(() => setState(\"idle\"), 2200)\n    } catch { setState(\"error\") }\n  }\n  return (\n    <div className={cn(\"flex flex-col gap-2\", className)}>\n      <div className=\"flex min-w-0 items-center gap-4\">\n        <code className=\"min-w-0 flex-1 overflow-x-auto py-3 text-sm whitespace-pre\">{command}</code>\n        <Button type=\"button\" variant=\"ghost\" size=\"icon\" onClick={copy} disabled={state === \"copying\"} aria-label={state === \"copied\" ? \"Command copied\" : \"Copy command\"}>\n          {state === \"copied\" ? <Check /> : <Copy />}\n        </Button>\n      </div>\n      <span role=\"status\" className={cn(\"text-xs\", state === \"error\" ? \"text-destructive\" : \"text-muted-foreground\")}>\n        {state === \"error\" ? \"Clipboard unavailable. Select and copy the command above, or try again.\" : state === \"copied\" ? \"Copied to clipboard.\" : \"\"}\n      </span>\n    </div>\n  )\n}\n",
+      "type": "registry:component",
+      "target": "components/wlkr/copy-command.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

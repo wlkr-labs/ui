@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-list",
+  "title": "Filter list",
+  "author": "WLKR Labs",
+  "description": "An accessible searchable list with accent-insensitive matching and empty states.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "input",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/wlkr/filter-list.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Search, X } from \"lucide-react\"\nimport { Input } from \"@/components/ui/input\"\nimport { Button } from \"@/components/ui/button\"\n\nexport type FilterListItem = { id: string; label: string; description?: string; keywords?: string[] }\n\n/** A small searchable list. Matching ignores case and accents, with a live result count. */\nexport function FilterList({ items, label = \"Search items\", placeholder = \"Find something…\" }: { items: FilterListItem[]; label?: string; placeholder?: string }) {\n  const [query, setQuery] = React.useState(\"\")\n  const id = React.useId()\n  const input = React.useRef<HTMLInputElement>(null)\n  const normalize = (value: string) => value.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").toLocaleLowerCase()\n  const words = normalize(query).trim().split(/\\s+/).filter(Boolean)\n  const results = items.filter(item => words.every(word => normalize([item.label, item.description, ...(item.keywords ?? [])].join(\" \")).includes(word)))\n  return (\n    <div className=\"flex w-full flex-col gap-5\">\n      <div className=\"flex items-center gap-3\">\n        <Search className=\"size-4 shrink-0 text-muted-foreground\" aria-hidden=\"true\" />\n        <label htmlFor={id} className=\"sr-only\">{label}</label>\n        <Input ref={input} id={id} type=\"search\" placeholder={placeholder} value={query} onChange={event => setQuery(event.target.value)} aria-describedby={`${id}-count`} />\n        {query && <Button type=\"button\" variant=\"ghost\" size=\"icon\" aria-label=\"Clear search\" onClick={() => { setQuery(\"\"); input.current?.focus() }}><X /></Button>}\n      </div>\n      <p id={`${id}-count`} role=\"status\" className=\"text-xs text-muted-foreground\">{results.length} {results.length === 1 ? \"result\" : \"results\"}</p>\n      <ul className=\"flex flex-col gap-5\">\n        {results.map(item => <li key={item.id}><p className=\"text-sm font-medium\">{item.label}</p>{item.description && <p className=\"mt-1 text-sm text-muted-foreground\">{item.description}</p>}</li>)}\n      </ul>\n      {results.length === 0 && <p className=\"text-sm text-muted-foreground\">No matches. Try another search or clear the filter.</p>}\n    </div>\n  )\n}\n",
+      "type": "registry:component",
+      "target": "components/wlkr/filter-list.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

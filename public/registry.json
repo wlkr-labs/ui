@@ -1,0 +1,125 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "@wlkr",
+  "homepage": "https://ui.wlkrlabs.com",
+  "items": [
+    {
+      "name": "copy-command",
+      "type": "registry:component",
+      "title": "Copy command",
+      "description": "A copyable command with honest clipboard feedback and a manual fallback.",
+      "author": "WLKR Labs",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/wlkr/copy-command.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/copy-command.tsx"
+        }
+      ]
+    },
+    {
+      "name": "async-action",
+      "type": "registry:component",
+      "title": "Async action",
+      "description": "Promise-aware action with pending, success, failure and retry states.",
+      "author": "WLKR Labs",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/wlkr/async-action.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/async-action.tsx"
+        }
+      ]
+    },
+    {
+      "name": "filter-list",
+      "type": "registry:component",
+      "title": "Filter list",
+      "description": "An accessible searchable list with accent-insensitive matching and empty states.",
+      "author": "WLKR Labs",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/wlkr/filter-list.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/filter-list.tsx"
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "WLKR theme",
+      "description": "Semantic light and dark tokens. Typography stays with your application.",
+      "cssVars": {
+        "light": {
+          "radius": ".375rem",
+          "background": "#ffffff",
+          "foreground": "#010101",
+          "card": "#ffffff",
+          "card-foreground": "#010101",
+          "popover": "#ffffff",
+          "popover-foreground": "#010101",
+          "primary": "#010101",
+          "primary-foreground": "#ffffff",
+          "secondary": "#f3f3f3",
+          "secondary-foreground": "#010101",
+          "muted": "#f3f3f3",
+          "muted-foreground": "#696969",
+          "accent": "#f3f3f3",
+          "accent-foreground": "#010101",
+          "destructive": "#b42318",
+          "border": "#dedede",
+          "input": "#dedede",
+          "ring": "#087d3d",
+          "brand": "#33f282",
+          "brand-foreground": "#010101"
+        },
+        "dark": {
+          "background": "#010101",
+          "foreground": "#f7f7f7",
+          "card": "#010101",
+          "card-foreground": "#f7f7f7",
+          "popover": "#161616",
+          "popover-foreground": "#f7f7f7",
+          "primary": "#f7f7f7",
+          "primary-foreground": "#010101",
+          "secondary": "#191919",
+          "secondary-foreground": "#f7f7f7",
+          "muted": "#191919",
+          "muted-foreground": "#a0a0a0",
+          "accent": "#191919",
+          "accent-foreground": "#f7f7f7",
+          "destructive": "#ff938a",
+          "border": "#343434",
+          "input": "#343434",
+          "ring": "#33f282",
+          "brand": "#33f282",
+          "brand-foreground": "#010101"
+        },
+        "theme": {
+          "color-brand": "var(--brand)",
+          "color-brand-foreground": "var(--brand-foreground)"
+        }
+      }
+    }
+  ]
+}

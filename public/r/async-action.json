@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "async-action",
+  "title": "Async action",
+  "author": "WLKR Labs",
+  "description": "Promise-aware action with pending, success, failure and retry states.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/wlkr/async-action.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ArrowUpRight, Check, LoaderCircle } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\n\n/** Runs one promise at a time, with accessible pending, success and retry feedback. */\nexport function AsyncAction({ action, children, pendingLabel = \"Saving…\", successLabel = \"Saved\", errorLabel = \"Could not save. Try again.\", disabled = false }: {\n  action: () => Promise<unknown>\n  children: React.ReactNode\n  pendingLabel?: string\n  successLabel?: string\n  errorLabel?: string\n  disabled?: boolean\n}) {\n  const [state, setState] = React.useState<\"idle\" | \"pending\" | \"success\" | \"error\">(\"idle\")\n  const locked = React.useRef(false)\n  const mounted = React.useRef(true)\n  React.useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])\n  async function run() {\n    if (locked.current) return\n    locked.current = true\n    setState(\"pending\")\n    try { await action(); if (mounted.current) setState(\"success\") }\n    catch { if (mounted.current) setState(\"error\") }\n    finally { locked.current = false }\n  }\n  return (\n    <div className=\"flex flex-col items-start gap-3\">\n      <Button type=\"button\" variant=\"ghost\" onClick={run} disabled={disabled || state === \"pending\"} aria-busy={state === \"pending\"}>\n        {state === \"pending\" ? <LoaderCircle data-icon=\"inline-start\" className=\"motion-safe:animate-spin\" /> : state === \"success\" ? <Check data-icon=\"inline-start\" /> : <ArrowUpRight data-icon=\"inline-start\" />}\n        {state === \"pending\" ? pendingLabel : state === \"success\" ? successLabel : children}\n      </Button>\n      <span role=\"status\" className={state === \"error\" ? \"text-sm text-destructive\" : \"sr-only\"}>\n        {state === \"error\" ? errorLabel : state === \"success\" ? successLabel : state === \"pending\" ? pendingLabel : \"\"}\n      </span>\n    </div>\n  )\n}\n",
+      "type": "registry:component",
+      "target": "components/wlkr/async-action.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

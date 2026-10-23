@@ -1,0 +1,58 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme",
+  "title": "WLKR theme",
+  "description": "Semantic light and dark tokens. Typography stays with your application.",
+  "cssVars": {
+    "theme": {
+      "color-brand": "var(--brand)",
+      "color-brand-foreground": "var(--brand-foreground)"
+    },
+    "light": {
+      "radius": ".375rem",
+      "background": "#ffffff",
+      "foreground": "#010101",
+      "card": "#ffffff",
+      "card-foreground": "#010101",
+      "popover": "#ffffff",
+      "popover-foreground": "#010101",
+      "primary": "#010101",
+      "primary-foreground": "#ffffff",
+      "secondary": "#f3f3f3",
+      "secondary-foreground": "#010101",
+      "muted": "#f3f3f3",
+      "muted-foreground": "#696969",
+      "accent": "#f3f3f3",
+      "accent-foreground": "#010101",
+      "destructive": "#b42318",
+      "border": "#dedede",
+      "input": "#dedede",
+      "ring": "#087d3d",
+      "brand": "#33f282",
+      "brand-foreground": "#010101"
+    },
+    "dark": {
+      "background": "#010101",
+      "foreground": "#f7f7f7",
+      "card": "#010101",
+      "card-foreground": "#f7f7f7",
+      "popover": "#161616",
+      "popover-foreground": "#f7f7f7",
+      "primary": "#f7f7f7",
+      "primary-foreground": "#010101",
+      "secondary": "#191919",
+      "secondary-foreground": "#f7f7f7",
+      "muted": "#191919",
+      "muted-foreground": "#a0a0a0",
+      "accent": "#191919",
+      "accent-foreground": "#f7f7f7",
+      "destructive": "#ff938a",
+      "border": "#343434",
+      "input": "#343434",
+      "ring": "#33f282",
+      "brand": "#33f282",
+      "brand-foreground": "#010101"
+    }
+  },
+  "type": "registry:theme"
+}
