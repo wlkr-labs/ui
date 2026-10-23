@@ -70,12 +70,6 @@
       "title": "Pixel object",
       "description": "A projected pixel sphere, custom point cloud, or mask with considerate motion controls.",
       "author": "WLKR Labs",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
       "files": [
         {
           "path": "registry/wlkr/pixel-object.tsx",
@@ -184,9 +178,6 @@
           "type": "registry:component",
           "target": "components/wlkr/index-row.tsx"
         }
-      ],
-      "dependencies": [
-        "lucide-react"
       ]
     },
     {
@@ -217,6 +208,11 @@
           "path": "registry/wlkr/theme-toggle.tsx",
           "type": "registry:component",
           "target": "components/wlkr/theme-toggle.tsx"
+        },
+        {
+          "path": "hooks/use-display-theme.ts",
+          "type": "registry:hook",
+          "target": "hooks/use-display-theme.ts"
         }
       ],
       "registryDependencies": [
@@ -236,6 +232,31 @@
           "path": "registry/wlkr/typography.css",
           "type": "registry:file",
           "target": "styles/wlkr-typography.css"
+        }
+      ]
+    },
+    {
+      "name": "footer-controls",
+      "type": "registry:component",
+      "title": "Footer controls",
+      "description": "Quiet system/light/dark controls with a real app-owned plain-text agent link.",
+      "author": "WLKR Labs",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/wlkr/footer-controls.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/footer-controls.tsx"
+        },
+        {
+          "path": "hooks/use-display-theme.ts",
+          "type": "registry:hook",
+          "target": "hooks/use-display-theme.ts"
         }
       ]
     }

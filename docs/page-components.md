@@ -1,17 +1,17 @@
 # Page components — local draft
 
-These five additions and PixelObject morphing are local review work. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged: five original components plus the theme. The local registry has nine original components plus typography and theme (11 items). No public deployment is authorized for this draft.
+These page additions, footer controls, and PixelObject morphing are local review work. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged: five original components plus the theme. The local registry has ten original components plus typography and theme (12 items). No public deployment is authorized for this draft.
 
 ## Install locally with the standard CLI
 
 Keep an existing consumer’s public `@wlkr` namespace configuration unchanged. Install unpublished items by direct local URLs:
 
 ```sh
-pnpm dlx shadcn@latest add http://localhost:3100/r/typography.json http://localhost:3100/r/page-intro.json http://localhost:3100/r/index-row.json http://localhost:3100/r/text-link.json http://localhost:3100/r/theme-toggle.json
+pnpm dlx shadcn@latest add http://localhost:3100/r/typography.json http://localhost:3100/r/page-intro.json http://localhost:3100/r/index-row.json http://localhost:3100/r/text-link.json http://localhost:3100/r/theme-toggle.json http://localhost:3100/r/footer-controls.json
 pnpm dlx shadcn@latest add http://localhost:3100/r/pixel-object.json
 ```
 
-Run the registry’s build and local static preview first. The stock CLI rewrites component imports to the consumer’s configured aliases and installs HoverCard and Toggle directly from shadcn. Stock primitive source remains unchanged and is never republished as a WLKR item. Installed draft source can differ from published registry source; record the local URL, source checkout, and verification revision with the adoption.
+Run the registry’s build and local static preview first. The stock CLI rewrites component imports to the consumer’s configured aliases and installs HoverCard, Toggle, and ToggleGroup directly from shadcn. Stock primitive source remains unchanged and is never republished as a WLKR item. Installed draft source can differ from published registry source; record the local URL, source checkout, and verification revision with the adoption.
 
 ## Typography and layout
 
@@ -61,7 +61,7 @@ The final heading is present in server HTML and accessibility APIs. Whole words 
 </IndexRow>
 ```
 
-A normal anchor accepts native anchor props plus required number/title and optional description/children/className. The number is normalized to exactly three digits. It occupies a fixed 3ch tabular slot and rolls through digit strips on hover **and keyboard focus**, landing on the real value. Reduced motion keeps the number static. The spoken number never changes. CSS animation has no timers or JavaScript frame loop; the title and native navigation remain available throughout.
+A normal anchor accepts native anchor props plus required number/title and optional description/children/className. The number is normalized to exactly three digits. There is no trailing arrow. It occupies a fixed 3ch tabular slot and rolls through digit strips on hover **and keyboard focus**, landing on the real value. Reduced motion keeps the number static. The spoken number never changes. CSS animation has no timers or JavaScript frame loop; the title and native navigation remain available throughout.
 
 ### TextLink
 
@@ -79,7 +79,7 @@ Native anchor props plus optional preview `{ title, description?, image?, imageA
 <ThemeToggle showLabel />
 ```
 
-Optional showLabel (false), className, storageKey (`wlkr-theme`). Uses the unchanged basic shadcn Toggle; no animated theme transition, menu, or new provider. It follows system preference until an explicit light/dark choice is stored, applies `.dark` and color-scheme at document root, and listens to system, cross-window storage, and same-window toggle changes. An in-memory choice works if storage is blocked. The server renders stable readable markup; a consumer can retain its existing theme prepaint script with the same storage key.
+Optional showLabel (false), className, storageKey (`wlkr-theme`). Uses the unchanged basic shadcn Toggle; no animated theme transition, menu, or new provider. It shares a small `use-display-theme` hook with FooterControls and follows system preference until an explicit light/dark choice is stored, applies `.dark` and color-scheme at document root, and listens to system, cross-window storage, and same-window toggle changes. An in-memory choice works if storage is blocked. The server renders stable readable markup; a consumer can retain its existing theme prepaint script with the same storage key.
 
 ## Morphing object
 
@@ -93,3 +93,19 @@ See [motion API](motion-components.md) for the same-point continuous interpolati
 ## Attribution
 
 The binary reveal references [shadcn.io Binary Text](https://www.shadcn.io/text/binary-text); code is independently authored. The rolling number interaction follows the familiar counting-number pattern, implemented with original bounded CSS digit strips. HoverCard and Toggle are installed directly from [shadcn/ui](https://ui.shadcn.com) and use [Radix](https://www.radix-ui.com). Typography comes from the existing WLKR gallery and licensed Geist, with no replacement design system.
+
+## FooterControls
+
+```tsx
+<FooterControls agentHref="/agent/current-page.md" />
+```
+
+Required `agentHref: string`; optional className and storageKey (default `wlkr-theme`). It composes the unchanged stock ToggleGroup with three 44 px icon options: System, Light, and Dark. The selected state uses a quiet semantic tonal surface. Keyboard navigation and focus remain available. A separate native anchor opens the actual app-owned agentHref in a new tab with `rel="noopener noreferrer"` and the accessible label “View as agent”. Supply a real Markdown/plain-text page; this component does not invent or run an AI agent. The gallery’s destination is generated `/llms.txt`, containing installation guidance, the component catalog, source JSON links, and documentation anchors.
+
+FooterControls replaces the gallery header theme control. The basic ThemeToggle example remains and synchronizes with footer controls. System removes the stored preference so the existing `wlkr-theme` prepaint script follows the OS. Explicit selection, same-window events, cross-window storage, and OS changes stay synchronized. Read-only/quota-blocked storage uses an authoritative in-memory selection rather than reverting to stale readable storage. External storage events can intentionally replace that in-memory choice.
+
+Both FooterControls and ThemeToggle registry items include the same small `hooks/use-display-theme.ts` source file. The CLI can skip the identical hook when the second component is installed; there is no unpublished registry dependency, local URL embedded in dependencies, provider, runtime package, or new service.
+
+## Direct animation interaction
+
+Animated PixelObject canvases are native unstyled buttons with stateful accessible names and aria-pressed. Click/tap or Enter/Space toggles pause; only keyboard focus draws a quiet outline. No visible Pause/Resume words or separate transport is rendered. Static objects remain ordinary images. The loader playground uses an external native button around a decorative mark; the reusable WlkrLoader stays a normal status/decorative symbol by default. Reduced-motion, visibility, hidden-document, and cleanup behavior remain intact.

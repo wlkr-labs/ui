@@ -94,3 +94,16 @@ These additions and the parallel website adoption are for local review. No publi
 - Registry static export, lint, TypeScript, source validation for 11 items, and diff checks passed. Final public build-info bytes match the pre-work receipts: ui.wlkrlabs.com remains `6c34da775eb20b62b4352a360586d100b62399df`, and wlkrlabs.com remains `51fc3d16f13e2be37e4ccc4fbc27fc62145153c7`.
 
 The reviewed draft is saved in local Git commits for owner review. No deploy or push was performed.
+
+## Direct animation and footer feedback — local draft, 2026-10-23
+
+The local catalog now contains 12 entries: ten original components, typography, and theme. FooterControls adds system/light/dark preferences and a real app-owned agent-view link. Both footer and basic theme controls include the same portable display-theme hook as source, with no unpublished registry dependency. The generated gallery `/llms.txt` contains installation, component, source JSON, and documentation links. IndexRow no longer renders a trailing arrow. PixelObject canvases and loader playground marks toggle pause directly; the reusable loading-status component remains noninteractive by default.
+
+Registry build/source validation for 12 entries, static production build, lint, TypeScript, and diff checks passed. Parent local browser acceptance confirmed:
+
+- Footer controls and the basic theme example synchronize their selected Light state; the gallery header theme control is absent.
+- There are no visible Pause/Resume transport buttons or words, no IndexRow SVG arrow, and the gallery agent link targets the real `/llms.txt` destination. Browser console warnings/errors: none.
+- The parallel website’s home title retains exactly three lines at widths 1280, 1099, 752, 390, and 320. Clicking the animation pauses without moving the SVG; Space resumes it.
+- System selection follows OS light/dark preference. All four footer targets measure 44×44 px, and the 390 px mobile layout has no horizontal overflow.
+
+This feedback remains local-only. Neither public application was deployed or pushed, and no commit was created by this implementation worker. The previously published source remains `6c34da775eb20b62b4352a360586d100b62399df`.

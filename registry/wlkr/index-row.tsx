@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const styles=`
@@ -13,7 +12,6 @@ const styles=`
 .wlkr-index-title{display:block;font-size:24px;line-height:1.2;font-weight:500;letter-spacing:-.8px}
 .wlkr-index-description{display:block;margin-top:7px;font-size:14px;line-height:1.6;color:var(--muted-foreground,#696969)}
 .wlkr-index-meta{display:flex;align-items:center;gap:16px;color:var(--muted-foreground,#696969);font-size:12px}
-.wlkr-index-meta>svg{width:16px;height:16px}
 .wlkr-index-row:focus-visible{outline:2px solid var(--ring,currentColor);outline-offset:6px}
 .wlkr-index-row:is(:hover,:focus-visible) .wlkr-index-title{color:var(--muted-foreground,#696969)}
 .wlkr-index-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
@@ -23,5 +21,5 @@ const styles=`
 `
 export function IndexRow({number,title,description,href,children,className,...props}:Omit<React.ComponentProps<"a">,"title"|"children">&{number:number|string;title:string;description?:string;children?:React.ReactNode}) {
   const digits=String(typeof number==="number"&&Number.isFinite(number)?Math.max(0,Math.min(999,Math.floor(number))):number).replace(/\D/g,"").slice(-3).padStart(3,"0")
-  return <a {...props} href={href} className={cn("wlkr-index-row",className)}><style>{styles}</style><span className="wlkr-index-sr">{digits} </span><span className="wlkr-index-number" aria-hidden="true">{[...digits].map((digit,index)=><span className="wlkr-index-wheel" key={index}><span className="wlkr-index-strip" style={{"--wlkr-digit":Number(digit),"--wlkr-roll-delay":`${index*45}ms`} as React.CSSProperties}>{Array.from({length:30},(_,position)=><span key={position}>{position%10}</span>)}</span></span>)}</span><span><span className="wlkr-index-title">{title}</span>{description&&<span className="wlkr-index-description">{description}</span>}</span><span className="wlkr-index-meta">{children}<ArrowUpRight aria-hidden="true"/></span></a>
+  return <a {...props} href={href} className={cn("wlkr-index-row",className)}><style>{styles}</style><span className="wlkr-index-sr">{digits} </span><span className="wlkr-index-number" aria-hidden="true">{[...digits].map((digit,index)=><span className="wlkr-index-wheel" key={index}><span className="wlkr-index-strip" style={{"--wlkr-digit":Number(digit),"--wlkr-roll-delay":`${index*45}ms`} as React.CSSProperties}>{Array.from({length:30},(_,position)=><span key={position}>{position%10}</span>)}</span></span>)}</span><span><span className="wlkr-index-title">{title}</span>{description&&<span className="wlkr-index-description">{description}</span>}</span><span className="wlkr-index-meta">{children}</span></a>
 }

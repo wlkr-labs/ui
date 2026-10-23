@@ -56,7 +56,7 @@ The loader embeds the exact approved WLKR mark: original 904×904 viewBox, group
 | `paused` | false | Pauses the beat without changing geometry. |
 | `className` | unset | Inherited color/layout composition. |
 
-The component uses CSS animation and no JavaScript frame loop. Intersection, visibility, and reduced-motion state control animation play state. Reduced motion shows the original static mark. Animation updates do not rewrite live-region text. The gallery provides variant, size, beat duration, cell stagger, Reset, and Pause controls with a matching copyable Usage example.
+The component uses CSS animation and no JavaScript frame loop. Intersection, visibility, and reduced-motion state control animation play state. Reduced motion shows the original static mark. Animation updates do not rewrite live-region text. The gallery provides variant, size, beat duration, cell stagger, and Reset controls; clicking or pressing the mark toggles pause with a matching copyable Usage example.
 
 ## Provenance
 
@@ -67,3 +67,5 @@ All motion/projection code is authored for WLKR. The geometry comes from the app
 The local PixelObject adds `morph?: { shapes?: ("sphere" | "cube" | "torus")[]; duration?: number }`. Omission preserves the published component exactly. When enabled, shapes default to sphere/cube/torus and duration defaults to 8 seconds per transition (clamped 2–60). All targets use the same 420 corresponding points, interpolated with a cosine ease; the loop morphs back to the first shape without swapping point clouds. Custom points or mask take precedence and disable generated morphing.
 
 Morphing uses the existing active timeline and pause/visibility/reduced-motion guards, independently of rotation and flicker. It stops the animation frame loop while paused, hidden, off-screen, or reduced-motion. The local gallery provides one opt-in morph switch; Reset/presets clear it, and Usage includes the actual morph configuration. This API remains unpublished pending review.
+
+The latest local draft removes separate visible animation transports. PixelObject uses an unstyled native button for an animated canvas; its accessible state is announced without visible Pause/Resume text. The WlkrLoader component itself remains noninteractive; only the gallery wraps a decorative loader in a native click/keyboard toggle.

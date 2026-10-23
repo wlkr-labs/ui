@@ -1,0 +1,37 @@
+# WLKR UI
+
+React and TypeScript source components, a shadcn-compatible registry, and opt-in WLKR typography.
+
+Status: local review draft. The published release remains 6c34da775eb20b62b4352a360586d100b62399df until an explicitly authorized release.
+
+## Installation
+
+Start with a React/Tailwind project configured by the standard shadcn CLI. Published namespace: @wlkr -> https://ui.wlkrlabs.com/r/{name}.json. Unpublished draft items are available from the local registry preview at http://localhost:3100/r/{name}.json. Keep existing public namespace configuration unchanged when reviewing a direct local item URL.
+
+pnpm dlx shadcn@latest add http://localhost:3100/r/footer-controls.json
+
+The CLI installs original source and pulls stock shadcn dependencies directly from upstream. No runtime component package, custom installer, or agent service is required.
+
+## Components and styles
+
+- [Copy command](/#copy-command): A copyable command with honest clipboard feedback and a manual fallback. [Source JSON](/r/copy-command.json)
+- [Async action](/#async-action): Promise-aware action with pending, success, failure and retry states. [Source JSON](/r/async-action.json)
+- [Filter list](/#filter-list): An accessible searchable list with accent-insensitive matching and empty states. [Source JSON](/r/filter-list.json)
+- [Pixel object](/#pixel-object): A projected pixel sphere, custom point cloud, or mask with considerate motion controls. [Source JSON](/r/pixel-object.json)
+- [WLKR loader](/#wlkr-loader): The original six-cell WLKR mark with considerate bars and dots loading motion. [Source JSON](/r/wlkr-loader.json)
+- [WLKR theme](/#theme): Semantic light and dark tokens. Typography stays with your application. [Source JSON](/r/theme.json)
+- [Page intro](/#page-intro): Gallery typography with a width-stable binary heading reveal. [Source JSON](/r/page-intro.json)
+- [Index row](/#index-row): Borderless index link with three fixed digits that roll on hover and focus. [Source JSON](/r/index-row.json)
+- [Text link](/#text-link): A normal text link with an optional keyboard-accessible Radix HoverCard preview. [Source JSON](/r/text-link.json)
+- [Theme toggle](/#theme-toggle): Basic shadcn Toggle with light, dark and system-aware persistence. [Source JSON](/r/theme-toggle.json)
+- [WLKR typography](/#typography): Opt-in exact gallery typography and layout, with semantic legacy token bridges. [Source JSON](/r/typography.json)
+- [Footer controls](/#footer-controls): Quiet system/light/dark controls with a real app-owned plain-text agent link. [Source JSON](/r/footer-controls.json)
+
+## Documentation
+
+- [Installation and application adoption](/#installation)
+- [Registry catalog](/registry.json)
+- [Foundations and semantic light/dark tokens](/#foundations)
+- [Typography and layout](/#typography)
+
+The gallery's source and Usage panels provide each component's implementation and examples. FooterControls receives a real app-owned agentHref; this text file is that destination here. It is plain documentation, with no external AI server or agent execution.

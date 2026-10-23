@@ -1,8 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { Pause, Play } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export type PixelPoint = { x: number; y: number; z?: number }
@@ -38,10 +36,10 @@ export function spherePoints(count = 420): PixelPoint[] {
 const sphere = spherePoints()
 const styles = `
 .wlkr-pixel-object{display:flex;flex-direction:column;align-items:center;gap:12px;max-width:100%}
-.wlkr-pixel-object>svg{display:block;width:100%;height:auto;overflow:visible}
-.wlkr-pixel-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 12px;cursor:pointer}
-.wlkr-pixel-toggle svg{width:14px;height:14px}
-.wlkr-pixel-toggle:focus-visible{outline:2px solid var(--ring,currentColor);outline-offset:4px}
+.wlkr-pixel-object svg{display:block;width:100%;height:auto;overflow:visible}
+.wlkr-pixel-canvas{display:block;width:100%;padding:0;margin:0;background:none;border:0;border-radius:0;color:inherit;font:inherit;line-height:0;cursor:pointer;touch-action:manipulation}
+.wlkr-pixel-canvas:focus-visible{outline:2px solid var(--ring,currentColor);outline-offset:5px}
+
 `
 function seedNumber(seed: string | number) {
   let result = 2166136261
@@ -158,12 +156,12 @@ export function PixelObject({ points, mask, resolution = 36, size = 260, label =
     const wave=effect==="scatter" ? Math.sin(phase+offset) : effect==="wave" ? Math.sin(phase-(x+y)*.3-offset*.2) : Math.cos(phase-y/Math.max(1,grid-1)*Math.PI*2)
     return 1-strength*ramp*(.65*(1-(wave+1)/2))
   }
-  return <div ref={root} className={cn("wlkr-pixel-object",className)} style={{width:dimension}} data-motion={motion?"running":"paused"} data-pattern={effect} data-morph={morphing?"continuous":undefined}>
-    <style>{styles}</style>
-    <svg viewBox={`0 0 ${extent} ${extent}`} role="img" aria-label={label}>
+  const image=<svg viewBox={`0 0 ${extent} ${extent}`} role="img" aria-label={label}>
       {[...pixels.entries()].map(([key,pixel]) => <rect key={key} x={inset+pixel.x*pitch} y={inset+pixel.y*pitch} width={dot} height={dot} rx={shape==="circle"?dot/2:shape==="rounded"?dot/12:0} fill="currentColor" opacity={alpha*(.22+Math.max(0,Math.min(1,(pixel.depth+1)/2))*.73)*intensity(pixel.x,pixel.y)} />)}
     </svg>
-    {animated&&<Button type="button" className="wlkr-pixel-toggle" variant="ghost" aria-label={paused?"Resume object motion":"Pause object motion"} aria-pressed={paused} onClick={()=>setPaused(value=>!value)}>{paused?<Play aria-hidden="true"/>:<Pause aria-hidden="true"/>}<span>{paused?"Resume":"Pause"}</span></Button>}
+  return <div ref={root} className={cn("wlkr-pixel-object",className)} style={{width:dimension}} data-motion={motion?"running":"paused"} data-pattern={effect} data-morph={morphing?"continuous":undefined}>
+    <style>{styles}</style>
+    {animated?<button type="button" className="wlkr-pixel-canvas" aria-label={`${paused?"Resume":"Pause"} animation: ${label}`} aria-pressed={paused} onClick={()=>setPaused(value=>!value)}>{image}</button>:image}
     <span role="status" className="sr-only">{motion?"Object motion active.":"Object is still."}</span>
   </div>
 }
