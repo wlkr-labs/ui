@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpm registry:build && next build",
-    "start": "next start",
+    "build": "pnpm registry:build && next build && node scripts/build-info.mjs",
+    "start": "wrangler dev --local --ip 127.0.0.1",
     "lint": "eslint .",
     "registry:build": "shadcn build && node scripts/registry-catalog.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "release:check": "node scripts/release-check.mjs",
+    "deploy:check": "pnpm build && wrangler deploy --dry-run",
+    "deploy": "pnpm release:check && wrangler deploy"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -31,7 +34,8 @@
     "eslint-config-next": "16.4.2",
     "shadcn": "^4.22.1",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "4.145.0"
   },
   "packageManager": "pnpm@11.15.0"
 }

@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry for the intended `https://ui.wlkrlabs.com` address. **Local implementation; not deployed.** The existing `wlkrlabs.com` website has not been changed or migrated.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry for the intended `https://ui.wlkrlabs.com` address. **Production configuration prepared; live release verification pending.** The existing `wlkrlabs.com` website has not been changed or migrated.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `origin` points to that starter for provenance, not a WLKR publishing destination. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -15,7 +15,7 @@ pnpm build
 pnpm start --port 3100
 ```
 
-`pnpm build` rebuilds the registry before Next.js. `pnpm dev --port 3100` runs development mode. The `public/r/` files and `public/registry.json` are generated and committed for static hosting. Rebuild whenever registry sources change. Source preview reads the same original files at build time; there is no component renderer or installer service.
+`pnpm build` rebuilds the registry before Next.js and exports the entire site to `out/`. `pnpm dev --port 3100` runs Next.js development mode. `pnpm start --port 3100` previews the exported assets through the local Cloudflare runtime; build first. The `public/r/` files and `public/registry.json` are generated and committed for static hosting. Rebuild whenever registry sources change. Source preview reads the same original files at build time; there is no component renderer or installer service.
 
 ## Install into another React project
 
@@ -101,3 +101,7 @@ Paper white `#ffffff`, ink `#010101`, neutral secondary text, and WLKR green `#3
 - Original component code: MIT, see `LICENSE`.
 
 The public domain is a deployment target. No DNS, hosting, external repository, or existing website was changed by this implementation.
+
+## Static Cloudflare release
+
+See [the deployment runbook](docs/deployment.md). `pnpm deploy:check` builds and validates the upload without publishing. `pnpm run deploy` requires a clean committed checkout, rebuilds and checks it, then publishes only the separate `wlkr-ui` static Worker at `ui.wlkrlabs.com`. The main `wlkrlabs-com` Worker and apex/`www` routes are outside this configuration.

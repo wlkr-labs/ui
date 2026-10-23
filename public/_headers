@@ -1,0 +1,6 @@
+/r/*
+  Cache-Control: public, max-age=0, must-revalidate
+/registry.json
+  Cache-Control: public, max-age=0, must-revalidate
+/build-info.json
+  Cache-Control: public, max-age=0, must-revalidate

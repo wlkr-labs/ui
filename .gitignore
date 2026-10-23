@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Local visual acceptance captures
 /output/
+
+# Local Cloudflare runtime state
+/.wrangler/
