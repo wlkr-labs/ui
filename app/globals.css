@@ -17,7 +17,7 @@
 }
 :root {
   --radius: .375rem;
-  --background:#ffffff; --foreground:#010101;
+  --background:#ffffff; --foreground:#010101; --control-surface:#fafafa;
   --card:#ffffff; --card-foreground:#010101; --popover:#ffffff; --popover-foreground:#010101;
   --primary:#010101; --primary-foreground:#ffffff;
   --secondary:#f3f3f3; --secondary-foreground:#010101;
@@ -27,7 +27,7 @@
   --brand:#33f282; --brand-foreground:#010101;
 }
 .dark {
-  --background:#010101; --foreground:#f7f7f7;
+  --background:#010101; --foreground:#f7f7f7; --control-surface:#090909;
   --card:#010101; --card-foreground:#f7f7f7; --popover:#161616; --popover-foreground:#f7f7f7;
   --primary:#f7f7f7; --primary-foreground:#010101;
   --secondary:#191919; --secondary-foreground:#f7f7f7;

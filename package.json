@@ -16,6 +16,7 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "cn": "^0.5.0",
     "lucide-react": "^0.487.0",
     "next": "16.4.2",
@@ -33,6 +34,7 @@
     "eslint": "^9.32.0",
     "eslint-config-next": "16.4.2",
     "shadcn": "^4.22.1",
+    "shiki": "^4.5.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2",
     "wrangler": "4.145.0"
