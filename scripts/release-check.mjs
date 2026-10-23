@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process"
-import { access } from "node:fs/promises"
+import { access, readFile } from "node:fs/promises"
 
 function requireClean() {
   const status = execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" })
@@ -18,5 +18,6 @@ run("lint")
 run("typecheck")
 // Registry generation must reproduce the committed static artifacts exactly.
 requireClean()
-for (const path of ["out/build-info.json", "out/index.html", "out/404.html", "out/registry.json", "out/r/copy-command.json", "out/r/async-action.json", "out/r/filter-list.json", "out/r/pixel-object.json", "out/r/theme.json"]) await access(path)
+const catalog = JSON.parse(await readFile("out/registry.json", "utf8"))
+for (const path of ["out/build-info.json", "out/index.html", "out/404.html", "out/registry.json", "out/r/registry.json", ...catalog.items.map(item => `out/r/${item.name}.json`)]) await access(path)
 console.log(`Static release verified from ${revision}.`)

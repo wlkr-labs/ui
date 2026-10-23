@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). Public HTTPS, registry artifacts, gallery interactions, and standard `@wlkr` CLI installation are verified. The existing `wlkrlabs.com` website has not been changed or migrated.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `8f87ab3313e943653dfd113d3912160d830cd0f4` contains four original components plus the theme; public HTTPS, registry artifacts, gallery interactions, and standard `@wlkr` CLI installation were verified. **The expanded PixelObject controls and new WLKR loader in this checkout are local review work only and have not been deployed.** The existing `wlkrlabs.com` website has not been changed or migrated.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `origin` points to that starter for provenance, not a WLKR publishing destination. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -71,9 +71,10 @@ The current `wlkrlabs.com` site uses Astro. Its future adoption needs the offici
 | `async-action` | One promise at a time, accessible pending/success/error, retry on next click | `action: () => Promise<unknown>`, `children`, optional `pendingLabel`, `successLabel`, `failureLabel` (visible), `errorLabel` (announcement), `disabled` |
 | `filter-list` | Search labels, descriptions and keywords; case/accent insensitive multiword match, live count, clear and empty feedback | `items: { id, label, description?, keywords? }[]`, optional `label`, `placeholder` |
 | `pixel-object` | Project a rotating sphere, normalized 3D point cloud, or #/space mask into an SVG pixel grid | optional `points: PixelPoint[]`, `mask: string[]`, `resolution`, `size`, `label`, `rotating`, `className`; exported `spherePoints(count?)` |
+| `wlkr-loader` (local only) | Original six-cell WLKR mark with bars/dots beats, fixed SVG bounds, and a single loading announcement | `variant`, `size`, `duration`, `stagger`, `label`, `decorative`, `paused`, `className` |
 | `theme` | Semantic light/dark tokens; app-controlled typography | Apply `.dark` to document root for dark mode |
 
-The collection contains four original components plus the optional theme. Their interaction styles travel with their source; no site-only stylesheet is required.
+The local collection contains five original components plus the optional theme. The public release still has four originals; `wlkr-loader` and the PixelObject expansion are local only. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
 
 Clipboard requires a secure context (HTTPS or localhost). On failure the selectable command remains available. Async actions require rejected promises for failures: throw when a fetch response is not OK. The preview’s “Simulate a failed save” switch exercises retry. Filter item IDs must be unique; results preserve input ordering.
 
@@ -81,11 +82,11 @@ Copy feedback stays in the same 44 px icon slot; screen-reader status remains of
 
 Filter inputs use the browser’s native text editing and a short focus marker by the search icon. Native `caret-shape: block` is enabled where supported; other browsers retain their native caret. Selection, IME, touch editing, and browser caret behavior remain native.
 
-`PixelObject` accepts `points` with x/y/z coordinates normalized to [-1, 1], or a flat `mask` array where `#` means filled and spaces/dots mean empty. `mask` takes precedence over `points`. Set `rotating={false}` for static logos, symbols, or masks. The default sphere uses `spherePoints(420)`; you can supply another point cloud. Point clouds are capped at 2,000 points; mask rows and columns at 80, resolution at 8–80, and display size at 64–1,000 px. Give every object a meaningful `label`.
+`PixelObject` accepts `points` with x/y/z coordinates normalized to [-1, 1], or a flat `mask` array where `#` means filled and spaces/dots mean empty. `mask` takes precedence over `points`. Set `rotating={false}` for static logos, symbols, or masks. The default sphere uses `spherePoints(420)`; you can supply another point cloud. Point clouds are capped at 2,000 points; mask rows and columns at 80, legacy resolution at 8–80, and display size at 64–1,000 px. Explicit `dotSize`/`gap` derive density from their pixel pitch instead of resolution; see the motion API for details. Give every object a meaningful `label`.
 
 Rotation pauses off-screen and in hidden browser tabs, and has an explicit Pause/Resume control. Reduced-motion preferences keep the object static and disable copy/text animation. Pending pixel motion is a 2.8-second, low-amplitude reconstruction; it has no hard flashing. The object rotates slowly (about 42 seconds per revolution), sampled around 12 fps. Effects clean up animation frames and observers on unmount. The interaction reference is [Magic UI’s flickering grid](https://magicui.design/docs/components/flickering-grid); the text mask and object projection here are original WLKR implementations.
 
-The site uses installed, unchanged stock `Button`, `Input`, `Switch`, and `Tabs`. Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
+The site uses installed, unchanged stock `Button`, `Input`, `Switch`, `Tabs`, `Slider`, `NativeSelect`, and `Field` (plus their upstream helper components). Those files are **not** registry entries. Original components declare stock dependencies by official shadcn item name; consumers receive them directly from upstream. The site presentation layer removes visual chrome without altering upstream source. Installed components inherit the consumer’s stock primitives and local styling, so appearance can differ from this showcase. WLKR theme changes tokens, not stock source or font imports.
 
 ## Design
 

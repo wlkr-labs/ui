@@ -85,6 +85,20 @@
       ]
     },
     {
+      "name": "wlkr-loader",
+      "type": "registry:component",
+      "title": "WLKR loader",
+      "description": "The original six-cell WLKR mark with considerate bars and dots loading motion.",
+      "author": "WLKR Labs",
+      "files": [
+        {
+          "path": "registry/wlkr/wlkr-loader.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/wlkr-loader.tsx"
+        }
+      ]
+    },
+    {
       "name": "theme",
       "type": "registry:theme",
       "title": "WLKR theme",

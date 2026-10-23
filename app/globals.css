@@ -146,3 +146,26 @@
 .search-row:focus-within>svg { color:var(--foreground); }
 .search-row:focus-within::after,.terminal-field:focus-within::after { content:""; position:absolute; left:0; bottom:0; width:16px; height:2px; background:var(--foreground); }
 .search-row input:focus-visible { outline:none; }
+.customize { margin:0 0 28px; }
+.customize>summary { width:fit-content; padding:12px 0; color:var(--muted-foreground); font-size:12px; cursor:pointer; }
+.customize-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin:14px 0 24px; }
+.customize-heading .playground-field { max-width:200px; }
+.customize-grid[data-slot=field-group] { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 36px; }
+.playground-field[data-slot=field] { gap:8px; min-width:0; }
+.playground-field [data-slot=field-label] { font-size:12px; color:var(--muted-foreground); font-weight:400; }
+.playground-field [data-slot=native-select-wrapper] { width:100%; }
+.playground-field [data-slot=native-select] { min-height:44px; border:0; border-radius:0; box-shadow:none; background:none; padding-left:0; }
+.playground-field [data-slot=native-select]:focus-visible { outline:2px solid var(--ring); outline-offset:3px; }
+.playground-field [data-slot=slider] { min-height:44px; }
+.playground-field [data-slot=slider-track] { height:2px; background:var(--muted); }
+.playground-field [data-slot=slider-range] { background:var(--muted-foreground); }
+.playground-field [data-slot=slider-thumb] { height:10px; width:10px; border:0; box-shadow:none; background:var(--foreground); }
+.playground-field [data-slot=slider-thumb]:focus-visible { outline:2px solid var(--ring); outline-offset:5px; }
+.customize-note { margin-top:20px; max-width:560px; font-size:12px; line-height:1.7; color:var(--muted-foreground); }
+.playground-code { padding:22px 0; }
+.playground-code>div { align-items:flex-start; }
+.playground-code code { font-size:12px; line-height:1.75; }
+.loader-stage { height:168px; display:flex; align-items:center; justify-content:center; }
+@media(max-width:620px){.customize-grid[data-slot=field-group]{gap:20px 24px}.customize-heading{gap:20px}}
+
+.pixel-stage { min-height:316px; display:flex; align-items:flex-start; justify-content:center; }
