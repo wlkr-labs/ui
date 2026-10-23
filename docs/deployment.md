@@ -2,7 +2,7 @@
 
 **Live release:** `6c34da775eb20b62b4352a360586d100b62399df` (five originals plus theme), published and publicly verified on 2026-10-23. Cloudflare deployment `1c3eee64-3e17-4f1b-92f3-8a3145b7a7a4` serves Worker version `600ac8d3-8fe7-4d69-b529-4f88cc9b8168` at 100%. See [verification](verification.md) for exact public acceptance evidence. The commands below describe repeat releases; later publishing still requires its own authorization.
 
-The local checkout now contains an unpublished 12-item page-component draft and PixelObject morphing. Those additions are local review work; the live release below remains unchanged.
+The local checkout now contains an unpublished 13-item page-component draft and PixelObject morphing. Those additions are local review work; the live release below remains unchanged.
 
 The site is a Next.js static export. Server components read original source at build time; all browser interactions run in the exported client assets. No Next.js server, adapter, Worker script, secret, runtime binding, or component service is required.
 
@@ -27,7 +27,7 @@ pnpm install --frozen-lockfile
 pnpm deploy:check
 ```
 
-This rebuilds the current catalog and static website (12 entries in the local page-component draft; six in the current public release), then runs `wrangler deploy --dry-run`. It does not publish. Preview the exported output locally with `pnpm start --port 3100`.
+This rebuilds the current catalog and static website (13 entries in the local page-component draft; six in the current public release), then runs `wrangler deploy --dry-run`. It does not publish. Preview the exported output locally with `pnpm start --port 3100`.
 
 Before publishing, inspect the Cloudflare account, existing Worker custom domains, and DNS for `ui.wlkrlabs.com` to establish that the new domain does not displace another service. Review and commit source, configuration, lockfile, and generated registry JSON. Local `.wrangler/`, `out/`, `.next/`, and screenshots remain ignored.
 
@@ -52,3 +52,7 @@ The release check requires a clean committed checkout, rebuilds, runs lint and T
 For a later release, use Cloudflare's previous deployment/version to roll back **only** `wlkr-ui`, then verify the public registry artifacts again. The first release has no earlier Worker version to restore. If its custom domain must be withdrawn, remove only the `ui.wlkrlabs.com` association; preserve the main website and its DNS. Never use the starter Git remote as a deployment destination.
 
 References: [Next.js static exports](https://nextjs.org/docs/app/guides/static-exports), [Cloudflare static assets](https://developers.cloudflare.com/workers/static-assets/), and [Wrangler configuration](https://developers.cloudflare.com/workers/wrangler/configuration/).
+
+## Source repository
+
+The public source repository is [wlkr-labs/ui](https://github.com/wlkr-labs/ui). Local `origin` uses the configured `github-scwlkr` SSH alias; `upstream` preserves the official registry starter. Pushing reviewed source is separate from deployment and does not authorize a Worker or website release.

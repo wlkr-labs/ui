@@ -121,3 +121,11 @@ The website footer measured 104×24 px, with four 24×24 px controls and 16×16 
 The compact control is still a local draft. No public deployment or push was performed.
 
 Final compact-control checks: gallery demo and footer both measure 104 × 24 px, with all icons 16 × 16 px. Website theme selection updates both the document class and accessible selected state; System was restored after testing. At a 390 px viewport, the document width remains 390 px and the control remains 104 × 24 px. The scoped tooltip arrow rule uses `!important` to override Radix’s inline SVG display style while leaving the stock Tooltip source unchanged.
+
+### GitHub star — local draft, 2026-10-23
+
+Added an original `GithubStar` repository link and a thirteenth registry item. The gallery includes explicit example data for a normal count, zero, a large count, and unavailable data; Usage and source read the same component. No runtime fetching or GitHub star mutation is performed. Public source remains `6c34da775eb20b62b4352a360586d100b62399df`.
+
+Production static build, lint, TypeScript, registry validation (13 items), registry generation, and `git diff --check` passed. Browser and clean-consumer acceptance are tracked separately after the local artifact handoff. No public deployment or push was performed.
+
+GitHub star browser acceptance: the 4,530 example remains 80.47 px wide throughout replay, with a 32 px link height, 18 px GitHub icon, and 16 px star. Hover shows bottom-up fill from inset 100% to zero, rolling digit transforms, and twelve particles settling at 25/32 px radii with opacity zero. Zero has the correct accessible count; unavailable data shows GitHub with no burst. The nine-digit example remains 123.55 px wide. Reduced motion has no fill/digit animation and invisible particles. The website displays the actual `wlkr-labs/ui` count of zero; its narrow header clips only viewport-edge decorative overflow. The complete embedded icon license was moved after imports so standard Astro CLI transforms preserve it. No Worker/website deployment was performed.

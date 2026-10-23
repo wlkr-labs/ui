@@ -257,6 +257,23 @@
           "target": "hooks/use-display-theme.ts"
         }
       ]
+    },
+    {
+      "name": "github-star",
+      "type": "registry:component",
+      "title": "GitHub star",
+      "description": "A native repository link with an app-supplied count, rolling digits, green star fill, and a bounded burst.",
+      "author": "WLKR Labs",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/wlkr/github-star.tsx",
+          "type": "registry:component",
+          "target": "components/wlkr/github-star.tsx"
+        }
+      ]
     }
   ]
 }

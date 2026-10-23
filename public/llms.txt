@@ -26,6 +26,7 @@ The CLI installs original source and pulls stock shadcn dependencies directly fr
 - [Theme toggle](/#theme-toggle): Basic shadcn Toggle with light, dark and system-aware persistence. [Source JSON](/r/theme-toggle.json)
 - [WLKR typography](/#typography): Opt-in exact gallery typography and layout, with semantic legacy token bridges. [Source JSON](/r/typography.json)
 - [Footer controls](/#footer-controls): Quiet system/light/dark controls with a real app-owned plain-text agent link. [Source JSON](/r/footer-controls.json)
+- [GitHub star](/#github-star): A native repository link with an app-supplied count, rolling digits, green star fill, and a bounded burst. [Source JSON](/r/github-star.json)
 
 ## Documentation
 

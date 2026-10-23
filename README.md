@@ -1,8 +1,8 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `6c34da775eb20b62b4352a360586d100b62399df` contains five original components plus the theme, including expanded PixelObject controls and WLKR loader. Public HTTPS, registry artifacts, gallery interactions, and clean-consumer `@wlkr` installation, build, and rendering are verified. The current local checkout additionally contains five unpublished page components, a typography stylesheet, and optional PixelObject morphing. These are local review additions and are not part of the published release. Website adoption is tracked separately.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `6c34da775eb20b62b4352a360586d100b62399df` contains five original components plus the theme, including expanded PixelObject controls and WLKR loader. Public HTTPS, registry artifacts, gallery interactions, and clean-consumer `@wlkr` installation, build, and rendering are verified. The current local checkout additionally contains six unpublished components, a typography stylesheet, and optional PixelObject morphing. These are local review additions and are not part of the published release. Website adoption is tracked separately.
 
-Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `origin` points to that starter for provenance, not a WLKR publishing destination. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
+Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `upstream` preserves that starter for provenance. `origin` points to the public [wlkr-labs/ui source repository](https://github.com/wlkr-labs/ui). Repository publication does not deploy either website. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
 ## Develop and verify
 
@@ -75,7 +75,7 @@ The current `wlkrlabs.com` site uses Astro. Its future adoption needs the offici
 | `wlkr-loader` | Original six-cell WLKR mark with bars/dots beats, fixed SVG bounds, and a single loading announcement | `variant`, `size`, `duration`, `stagger`, `label`, `decorative`, `paused`, `className` |
 | `theme` | Semantic light/dark tokens; app-controlled typography | Apply `.dark` to document root for dark mode |
 
-The public collection contains five original components plus the optional theme. The local draft has ten original components, typography styles, and the theme (12 items). See [local page component contracts](docs/page-components.md) for the five unpublished additions and morph API. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
+The public collection contains five original components plus the optional theme. The local draft has eleven original components, typography styles, and the theme (13 items). See [local page component contracts](docs/page-components.md) for the five unpublished additions and morph API. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
 
 Clipboard requires a secure context (HTTPS or localhost). On failure the selectable command remains available. Async actions require rejected promises for failures: throw when a fetch response is not OK. The preview’s “Simulate a failed save” switch exercises retry. Filter item IDs must be unique; results preserve input ordering.
 
@@ -109,3 +109,7 @@ The public site runs on its own Cloudflare static Worker, `wlkr-ui`, at `ui.wlkr
 ## Static Cloudflare release
 
 See [the deployment runbook](docs/deployment.md). `pnpm deploy:check` builds and validates the upload without publishing. `pnpm run deploy` requires a clean committed checkout, rebuilds and checks it, then publishes only the separate `wlkr-ui` static Worker at `ui.wlkrlabs.com`. The main `wlkrlabs-com` Worker and apex/`www` routes are outside this configuration.
+
+## GitHub star — local draft
+
+`GithubStar` links to a repository with a count supplied by the application. It does not fetch or mutate GitHub stars. Rolling tabular digits, a bottom-up WLKR-green fill, and twelve bounded particles replay on hover/focus after the initial visible reveal; reduced motion renders the final count and star. Pass `count={null}` when the count is unavailable. See [API and attribution](docs/github-star.md). This addition is not published.

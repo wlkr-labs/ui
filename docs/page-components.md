@@ -1,6 +1,6 @@
 # Page components — local draft
 
-These page additions, footer controls, and PixelObject morphing are local review work. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged: five original components plus the theme. The local registry has ten original components plus typography and theme (12 items). No public deployment is authorized for this draft.
+These page additions, footer controls, and PixelObject morphing are local review work. Public release `6c34da775eb20b62b4352a360586d100b62399df` remains unchanged: five original components plus the theme. The local registry has eleven original components plus typography and theme (13 items). No public deployment is authorized for this draft.
 
 ## Install locally with the standard CLI
 
