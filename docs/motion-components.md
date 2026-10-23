@@ -1,6 +1,6 @@
-# Motion components — local review
+# Motion components
 
-The customizer and WLKR loader are local review work. They have not been published. The live site and public registry remain release `8f87ab3313e943653dfd113d3912160d830cd0f4`, with the original PixelObject and no WLKR loader. Run `pnpm dev --port 3100` and use the local gallery. For a disposable consumer, map `@wlkr` to `http://localhost:3100/r/{name}.json` before installing `@wlkr/pixel-object` and `@wlkr/wlkr-loader`.
+The customizer and WLKR loader are live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com), source release `6c34da775eb20b62b4352a360586d100b62399df`. Configure `@wlkr` as `https://ui.wlkrlabs.com/r/{name}.json`, then install `@wlkr/pixel-object` and `@wlkr/wlkr-loader` with the standard shadcn CLI. Clean-consumer installation, TypeScript/Vite build, and browser rendering were verified. For local development, run `pnpm dev --port 3100` and optionally map a disposable consumer to the local namespace.
 
 ## PixelObject
 

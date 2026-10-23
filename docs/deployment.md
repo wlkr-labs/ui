@@ -1,6 +1,6 @@
 # Static release to ui.wlkrlabs.com
 
-**Current scope: local review only.** The live release remains `8f87ab3313e943653dfd113d3912160d830cd0f4` (four originals plus theme). This checkout adds a fifth original and PixelObject controls; it is not authorized for a new deployment. The commands below describe the release procedure for a later explicitly authorized release.
+**Live release:** `6c34da775eb20b62b4352a360586d100b62399df` (five originals plus theme), published and publicly verified on 2026-10-23. Cloudflare deployment `1c3eee64-3e17-4f1b-92f3-8a3145b7a7a4` serves Worker version `600ac8d3-8fe7-4d69-b529-4f88cc9b8168` at 100%. See [verification](verification.md) for exact public acceptance evidence. The commands below describe repeat releases; later publishing still requires its own authorization.
 
 The site is a Next.js static export. Server components read original source at build time; all browser interactions run in the exported client assets. No Next.js server, adapter, Worker script, secret, runtime binding, or component service is required.
 
@@ -25,7 +25,7 @@ pnpm install --frozen-lockfile
 pnpm deploy:check
 ```
 
-This rebuilds the six local registry entries and static website, then runs `wrangler deploy --dry-run`. It does not publish. Preview the exported output locally with `pnpm start --port 3100`.
+This rebuilds the six registry entries and static website, then runs `wrangler deploy --dry-run`. It does not publish. Preview the exported output locally with `pnpm start --port 3100`.
 
 Before publishing, inspect the Cloudflare account, existing Worker custom domains, and DNS for `ui.wlkrlabs.com` to establish that the new domain does not displace another service. Review and commit source, configuration, lockfile, and generated registry JSON. Local `.wrangler/`, `out/`, `.next/`, and screenshots remain ignored.
 
@@ -35,13 +35,13 @@ Before publishing, inspect the Cloudflare account, existing Worker custom domain
 pnpm run deploy
 ```
 
-The release check requires a clean committed checkout, rebuilds, runs lint and TypeScript checks, confirms generation leaves Git clean, and checks the expected static files. It prints the Git revision that produced the output. `out/build-info.json` records that source revision, the build time, and SHA-256 hashes of both registry catalogs and all six local item endpoints. This receipt is generated only in the ignored export directory, avoiding a committed self-reference. Wrangler then publishes the asset-only Worker and configured custom domain. Record the revision and Cloudflare deployment/version identifiers in the verification record.
+The release check requires a clean committed checkout, rebuilds, runs lint and TypeScript checks, confirms generation leaves Git clean, and checks the expected static files. It prints the Git revision that produced the output. `out/build-info.json` records that source revision, the build time, and SHA-256 hashes of both registry catalogs and all six item endpoints. This receipt is generated only in the ignored export directory, avoiding a committed self-reference. Wrangler then publishes the asset-only Worker and configured custom domain. Record the revision and Cloudflare deployment/version identifiers in the verification record.
 
 ## Verify the public release
 
 1. Open `https://ui.wlkrlabs.com` over HTTPS and confirm the gallery and interactive previews render.
-2. Confirm `/registry.json`, `/r/registry.json`, and all six local `/r/{name}.json` endpoints return valid JSON. Compare their bytes with the generated files in this committed checkout and the SHA-256 values at `/build-info.json`. Registry and build-info responses use revalidation headers.
-3. In a fresh React/Tailwind/shadcn consumer, configure `"@wlkr": "https://ui.wlkrlabs.com/r/{name}.json"`. Install the five local originals and optional theme using `pnpm dlx shadcn@latest add @wlkr/copy-command @wlkr/async-action @wlkr/filter-list @wlkr/pixel-object @wlkr/wlkr-loader @wlkr/theme`.
+2. Confirm `/registry.json`, `/r/registry.json`, and all six `/r/{name}.json` endpoints return valid JSON. Compare their bytes with the generated files in this committed checkout and the SHA-256 values at `/build-info.json`. Registry and build-info responses use revalidation headers.
+3. In a fresh React/Tailwind/shadcn consumer, configure `"@wlkr": "https://ui.wlkrlabs.com/r/{name}.json"`. Install the five originals and optional theme using `pnpm dlx shadcn@latest add @wlkr/copy-command @wlkr/async-action @wlkr/filter-list @wlkr/pixel-object @wlkr/wlkr-loader @wlkr/theme`.
 4. Mount the installed components, build the consumer, and inspect browser rendering. Check both the registry and the existing apex website; no website migration is part of this release.
 5. Only after successful public verification, update README release status and append exact release evidence to `docs/verification.md`.
 

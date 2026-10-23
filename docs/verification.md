@@ -54,7 +54,7 @@ Immutable release identity: Cloudflare deployment `14b2cdfb-b58c-466d-a01d-c232a
 
 Public configuration remains restricted to `ui.wlkrlabs.com`; `workers.dev` and preview URLs are disabled. The source receipt is generated in the exported output rather than committed into public source. This documentation update does not change the deployed application revision.
 
-## Motion playground expansion — local only, 2026-10-23
+## Motion playground expansion — historical local review, 2026-10-23
 
 The local draft expands PixelObject with physical dot size/gap, shape, independent rotation/flicker timing, four seeded smooth patterns, delay/stagger, opacity, and presets with a copyable live Usage example. It adds WlkrLoader as a fifth original, retaining the exact six-cell brand geometry with bars/dots beat variants. The local registry contains six items including the theme.
 
@@ -62,4 +62,18 @@ The source registry validation passed for all six items. Production static expor
 
 Local static-browser acceptance passed presets, custom controls, matching Usage examples, Reset, pause, and reduced motion. With Customize open, all four preset section heights were identical at 1551.68 px. The 390 px mobile layout had no horizontal overflow, sliders had 44 px touch targets, and a fresh browser run had no console warnings or errors. Local screenshots: `output/playwright/local-pixel-customizer.png`, `output/playwright/local-wlkr-loader.png`, and `output/playwright/local-motion-mobile.png`.
 
-No deployment or other public mutation is authorized or performed for this expansion. The live application and public registry remain source revision `8f87ab3313e943653dfd113d3912160d830cd0f4`, deployment `14b2cdfb-b58c-466d-a01d-c232ae5efdec`. These local additions are for user review.
+At this historical review stage, no deployment or other public mutation had been authorized or performed for the expansion. The public release then remained source `8f87ab3313e943653dfd113d3912160d830cd0f4`, deployment `14b2cdfb-b58c-466d-a01d-c232ae5efdec`. The subsequent authorized release is recorded below.
+
+## Public motion release — 2026-10-23
+
+Published source revision: `6c34da775eb20b62b4352a360586d100b62399df`. Cloudflare deployment `1c3eee64-3e17-4f1b-92f3-8a3145b7a7a4`, created `2026-10-23T16:27:22.596983Z` (11:27:22 a.m. America/Chicago), serves `wlkr-ui` version `600ac8d3-8fe7-4d69-b529-4f88cc9b8168` at 100%. The release includes five original components and the theme, with the expanded PixelObject and WLKR loader now public.
+
+- Public build-info reported the exact source revision. All eight JSON endpoints (both catalogs and six items) returned HTTP 200 with bytes and SHA-256 hashes matching the exported release receipt. A missing registry item returned 404.
+- Normal Mac DNS resolution and public HTTPS worked for this verification; no hostname overrides, localhost registry URLs, or mocked responses were used for public installation. The earlier negative DNS cache issue is no longer present at this check.
+- The apex website’s build-info bytes stayed unchanged. This release updated only the separate `ui.wlkrlabs.com` service.
+- Live gallery browser acceptance selected Disco (`data-pattern="scatter"`) and the Dots loader variant (six cells, running), with no console warnings or errors. Screenshot: `output/playwright/public-wlkr-loader-release.png`.
+- A fresh consumer was scaffolded at `/tmp/wlkr-ui-release-consumer-20261023` using `pnpm dlx shadcn@latest init --template vite --base radix --preset nova --no-monorepo --name wlkr-ui-release-consumer-20261023 -y`. The WLKR source directory was confirmed absent before installing. Its `@wlkr` namespace used `https://ui.wlkrlabs.com/r/{name}.json`.
+- The normal command `pnpm dlx shadcn@latest add @wlkr/pixel-object @wlkr/wlkr-loader -y` installed both originals directly from the public registry, reusing the identical stock shadcn button. The fixture mounted a customized PixelObject and both loader variants. `pnpm build` passed TypeScript and Vite production build checks.
+- Browser acceptance of that installed consumer confirmed the customized pixel object using the Wave pattern and running, with Bars and Dots loaders each rendering six running cells. Console warnings and errors: none. Screenshot: `output/playwright/public-motion-installed-consumer.png`. The owned production preview on port 3102 was stopped gracefully after acceptance.
+
+These documentation updates record the immutable published application revision; they do not require another application deployment.

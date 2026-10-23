@@ -1,6 +1,6 @@
 # wlkr/ui
 
-Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `8f87ab3313e943653dfd113d3912160d830cd0f4` contains four original components plus the theme; public HTTPS, registry artifacts, gallery interactions, and standard `@wlkr` CLI installation were verified. **The expanded PixelObject controls and new WLKR loader in this checkout are local review work only and have not been deployed.** The existing `wlkrlabs.com` website has not been changed or migrated.
+Standalone React, TypeScript, Tailwind 4, and shadcn registry, live at [ui.wlkrlabs.com](https://ui.wlkrlabs.com). The public release at `6c34da775eb20b62b4352a360586d100b62399df` contains five original components plus the theme, including expanded PixelObject controls and WLKR loader. Public HTTPS, registry artifacts, gallery interactions, and clean-consumer `@wlkr` installation, build, and rendering are verified. The existing `wlkrlabs.com` website has not been changed or migrated.
 
 Created from the official [shadcn registry starter](https://github.com/shadcn-ui/registry-template), linked by the [current getting-started guide](https://ui.shadcn.com/docs/registry/getting-started), at upstream commit `906f859db0125965cba71c51da1707c0a4c6d045`. Full upstream history remains in Git. `origin` points to that starter for provenance, not a WLKR publishing destination. Work is on `codex/wlkr-ui`. Local checkout: `/Users/shanewalker/Desktop/dev/wlkr-ui`.
 
@@ -36,6 +36,7 @@ pnpm dlx shadcn@latest add @wlkr/copy-command
 pnpm dlx shadcn@latest add @wlkr/async-action
 pnpm dlx shadcn@latest add @wlkr/filter-list
 pnpm dlx shadcn@latest add @wlkr/pixel-object
+pnpm dlx shadcn@latest add @wlkr/wlkr-loader
 # Optional; review and merge any existing theme tokens before applying.
 pnpm dlx shadcn@latest add @wlkr/theme
 ```
@@ -71,10 +72,10 @@ The current `wlkrlabs.com` site uses Astro. Its future adoption needs the offici
 | `async-action` | One promise at a time, accessible pending/success/error, retry on next click | `action: () => Promise<unknown>`, `children`, optional `pendingLabel`, `successLabel`, `failureLabel` (visible), `errorLabel` (announcement), `disabled` |
 | `filter-list` | Search labels, descriptions and keywords; case/accent insensitive multiword match, live count, clear and empty feedback | `items: { id, label, description?, keywords? }[]`, optional `label`, `placeholder` |
 | `pixel-object` | Project a rotating sphere, normalized 3D point cloud, or #/space mask into an SVG pixel grid | optional `points: PixelPoint[]`, `mask: string[]`, `resolution`, `size`, `label`, `rotating`, `className`; exported `spherePoints(count?)` |
-| `wlkr-loader` (local only) | Original six-cell WLKR mark with bars/dots beats, fixed SVG bounds, and a single loading announcement | `variant`, `size`, `duration`, `stagger`, `label`, `decorative`, `paused`, `className` |
+| `wlkr-loader` | Original six-cell WLKR mark with bars/dots beats, fixed SVG bounds, and a single loading announcement | `variant`, `size`, `duration`, `stagger`, `label`, `decorative`, `paused`, `className` |
 | `theme` | Semantic light/dark tokens; app-controlled typography | Apply `.dark` to document root for dark mode |
 
-The local collection contains five original components plus the optional theme. The public release still has four originals; `wlkr-loader` and the PixelObject expansion are local only. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
+The public collection contains five original components plus the optional theme. See [the motion component API](docs/motion-components.md) for controls, presets, timing, and input precedence. Their interaction styles travel with their source; no site-only stylesheet is required.
 
 Clipboard requires a secure context (HTTPS or localhost). On failure the selectable command remains available. Async actions require rejected promises for failures: throw when a fetch response is not OK. The preview’s “Simulate a failed save” switch exercises retry. Filter item IDs must be unique; results preserve input ordering.
 
